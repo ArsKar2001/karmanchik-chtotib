@@ -2,3 +2,6 @@
 /bots/telegram-bot/target/
 /entity-service/target/
 /bots/telegram-bot/logs/
+
+/bots/telegram-bot/src/main/resources/application.yaml
+/web-app/rest-service/src/main/resources/application.yaml
