@@ -1,0 +1,26 @@
+2021-05-15 09:36:13,819 INFO o.s.b.StartupInfoLogger [main] Starting TelegramBotMain using Java 15.0.2 on LAPTOP-MVK7B435 with PID 17480 (C:\Users\arsen\IdeaProjects\karmanchik-chtotib\bots\telegram-bot\target\classes started by arsen in C:\Users\arsen\IdeaProjects\karmanchik-chtotib)
+2021-05-15 09:36:13,822 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-15 09:36:14,117 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-15 09:36:14,168 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 44 ms. Found 5 JPA repository interfaces.
+2021-05-15 09:36:14,478 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-15 09:36:14,518 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-05-15 09:36:14,614 INFO o.h.a.c.r.j.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-15 09:36:14,695 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2021-05-15 09:36:17,456 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-05-15 09:36:17,467 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-15 09:36:27,784 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-15 09:36:27,790 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-15 09:36:28,934 INFO o.s.b.StartupInfoLogger [main] Started TelegramBotMain in 15.5 seconds (JVM running for 16.278)
+2021-05-15 09:36:35,159 INFO k.c.t.b.UpdateReceiver [chtotibBot Telegram Executor] ChatUser - ChatUser{id=103446, chatId=977606227, userName='l_karmanchik_l', botState=AUTHORIZED, userState=NONE, role=STUDENT}
+2021-05-15 09:36:42,418 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=<b>------------------------------------------------------------</b>
+Расписание <b>ИКСиС-20-1</b> на <b>17 мая</b> (понедельник):
+<b>------------------------------------------------------------</b>
+	I	<b>|</b>	Иностр. язык	<b>|</b>	58	<b>|</b>	Туркова С.В., Назарова А.А.
+	II	<b>|</b>	Математика	<b>|</b>	58	<b>|</b>	Лямина О.С.
+	III	<b>|</b>	Электроснабжение	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	IV	<b>|</b>	Электроснаб IIп	<b>|</b>	211	<b>|</b>	Рыбас И.А.
+Замены на <b>2021-05-17</b> нет., parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=null, entities=null, allowSendingWithoutReply=null)
+2021-05-15 09:36:42,607 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=1.	Расписание на <b>17 мая</b> (понедельник)
+2.	Расписание на эту неделю (нижняя)
+3.	Узнать расписание педагога
+4.	Изменить анкету, parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text=1, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=2, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=3, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=4, requestContact=null, requestLocation=null, requestPoll=null)]], resizeKeyboard=true, oneTimeKeyboard=false, selective=false), entities=null, allowSendingWithoutReply=null)
