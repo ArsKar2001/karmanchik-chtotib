@@ -6,5 +6,5 @@
 bots/telegram-bot/logs/
 /web-app/rest-service/logs/
 
-/bots/telegram-bot/src/main/resources/
-/web-app/rest-service/src/main/resources/
+/bots/telegram-bot/src/main/resources/application.yaml
+/web-app/rest-service/src/main/resources/application.yaml
