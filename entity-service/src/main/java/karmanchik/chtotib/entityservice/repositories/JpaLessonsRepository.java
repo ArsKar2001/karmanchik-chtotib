@@ -19,4 +19,6 @@ public interface JpaLessonsRepository extends JpaRepository<Lesson, Integer> {
     List<Lesson> findByTeacherOrderByPairNumberAsc(Teacher teacher);
 
     List<Lesson> findByGroup(Group group);
+
+    List<Lesson> findAllByDayOrderByPairNumber(Integer day);
 }

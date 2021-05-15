@@ -1,3 +1,4 @@
 # Project exclude paths
 /bots/telegram-bot/target/
 /entity-service/target/
+/bots/telegram-bot/logs/

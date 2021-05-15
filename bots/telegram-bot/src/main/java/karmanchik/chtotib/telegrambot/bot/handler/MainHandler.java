@@ -14,14 +14,19 @@ public abstract class MainHandler implements Handler {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) throws ResourceNotFoundException {
         if (MainCommand.isCommand(message)) {
-            return switch (Objects.requireNonNull(MainCommand.get(message))) {
-                case COMMAND_1 -> getTimetableNextDay(chatUser);
-                case COMMAND_2 -> getTimetableFull(chatUser);
-                case COMMAND_3 -> getTimetableOther(chatUser);
-                case COMMAND_4 -> editProfile(chatUser);
-            };
+            switch (Objects.requireNonNull(MainCommand.get(message))) {
+                case COMMAND_1:
+                    return getTimetableNextDay(chatUser);
+                case COMMAND_2:
+                    return getTimetableFull(chatUser);
+                case COMMAND_3:
+                    return getTimetableOther(chatUser);
+                case COMMAND_4:
+                    return editProfile(chatUser);
+                default:
+                    throw new IllegalArgumentException();
+            }
         }
-
         return Collections.emptyList();
     }
 

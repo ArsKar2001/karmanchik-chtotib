@@ -3,7 +3,9 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/entity-service/entity-service.iml" filepath="$PROJECT_DIR$/entity-service/entity-service.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-app/frontend/frontend.iml" filepath="$PROJECT_DIR$/web-app/frontend/frontend.iml" />
       <module fileurl="file://$PROJECT_DIR$/karmanchik-chtotib.iml" filepath="$PROJECT_DIR$/karmanchik-chtotib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/web-app/rest-service/rest-service.iml" filepath="$PROJECT_DIR$/web-app/rest-service/rest-service.iml" />
       <module fileurl="file://$PROJECT_DIR$/bots/telegram-bot/telegram-bot.iml" filepath="$PROJECT_DIR$/bots/telegram-bot/telegram-bot.iml" />
     </modules>
   </component>

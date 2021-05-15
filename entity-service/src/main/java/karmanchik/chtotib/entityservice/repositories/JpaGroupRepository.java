@@ -3,8 +3,11 @@ package karmanchik.chtotib.entityservice.repositories;
 import com.sun.istack.NotNull;
 import karmanchik.chtotib.entityservice.entity.ChatUser;
 import karmanchik.chtotib.entityservice.entity.Group;
+import karmanchik.chtotib.entityservice.entity.Lesson;
+import karmanchik.chtotib.entityservice.entity.Replacement;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,4 +28,14 @@ public interface JpaGroupRepository extends JpaRepository<Group, Integer> {
             "WHERE lower(g.name) LIKE %:academicYearSuffix% " +
             "ORDER BY g.name")
     List<Group> findAllByYearSuffix(String academicYearSuffix);
+
+    @Query("SELECT l FROM Lesson l " +
+            "WHERE l.group = :group ")
+    List<Lesson> getLessonsByGroup(Group group);
+
+    @Query("SELECT r FROM Replacement r " +
+            "WHERE r.group = :group ")
+    List<Replacement> getReplacementsByGroup(Group group);
+
+    Boolean existsByName(@NotNull String name);
 }

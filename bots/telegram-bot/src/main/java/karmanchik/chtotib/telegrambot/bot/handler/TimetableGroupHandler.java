@@ -39,13 +39,16 @@ public class TimetableGroupHandler implements Handler {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) throws ResourceNotFoundException {
-        return switch (chatUser.getUserState()) {
-            case SELECT_COURSE -> helper.selectGroup(chatUser, message);
-            case SELECT_GROUP -> selectGroupOrAccept(chatUser, message);
-            default -> List.of(
-                    cancel(chatUser)
-            );
-        };
+        switch (chatUser.getUserState()) {
+            case SELECT_COURSE:
+                return helper.selectGroup(chatUser, message);
+            case SELECT_GROUP:
+                return selectGroupOrAccept(chatUser, message);
+            default:
+                return List.of(
+                        cancel(chatUser)
+                );
+        }
     }
 
     public static List<PartialBotApiMethod<? extends Serializable>> start(ChatUser chatUser) {

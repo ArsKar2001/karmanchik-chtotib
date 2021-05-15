@@ -1,8 +1,8 @@
 package karmanchik.chtotib.entityservice.exception;
 
-public class ResourceNotFoundException extends Exception {
+public class ResourceNotFoundException extends RuntimeException {
     public ResourceNotFoundException(Integer resourceId, Class aClass) {
-        super(String.format("Не найден %s {id=%s}", aClass.getName(), resourceId));
+        super(String.format("Не найден %s {id=%s}", aClass.getSimpleName(), resourceId));
     }
 
     /**
@@ -11,7 +11,11 @@ public class ResourceNotFoundException extends Exception {
      * call to {@link #initCause}.
      */
     public ResourceNotFoundException(Class aClass) {
-        super("Не найдены " + aClass.getName());
+        super("Не найден " + aClass.getSimpleName());
+    }
+
+    public ResourceNotFoundException(String message) {
+        super(message);
     }
 
     /**
@@ -23,6 +27,6 @@ public class ResourceNotFoundException extends Exception {
      *                later retrieval by the {@link #getMessage()} method.
      */
     public ResourceNotFoundException(String message, Class aClass) {
-        super(String.format("Не найден %s {name=%s}", aClass.getName(), message));
+        super(String.format("Не найден %s {name=%s}", aClass.getSimpleName(), message));
     }
 }

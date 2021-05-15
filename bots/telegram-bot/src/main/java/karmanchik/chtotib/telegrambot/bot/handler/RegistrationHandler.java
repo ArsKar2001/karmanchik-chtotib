@@ -40,14 +40,20 @@ public class RegistrationHandler implements Handler {
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) {
         try {
             UserState state = chatUser.getUserState();
-            return switch (state) {
-                case SELECT_COURSE -> helper.selectGroup(chatUser, message);
-                case SELECT_GROUP -> selectGroupOrAccept(chatUser, message);
-                case SELECT_ROLE -> switchRole(chatUser, message);
-                case INPUT_TEXT -> selectTeacher(chatUser, message);
-                case SELECT_TEACHER -> selectTeacherOrAccept(chatUser, message);
-                default -> Collections.emptyList();
-            };
+            switch (state) {
+                case SELECT_COURSE:
+                    return helper.selectGroup(chatUser, message);
+                case SELECT_GROUP:
+                    return selectGroupOrAccept(chatUser, message);
+                case SELECT_ROLE:
+                    return switchRole(chatUser, message);
+                case INPUT_TEXT:
+                    return selectTeacher(chatUser, message);
+                case SELECT_TEACHER:
+                    return selectTeacherOrAccept(chatUser, message);
+                default:
+                    return Collections.emptyList();
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
             return List.of(

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,4 +28,6 @@ public interface JpaReplacementRepository extends JpaRepository<Replacement, Int
             "WHERE :teacher member of r.teachers " +
             "ORDER BY r.date, r.pairNumber")
     List<Replacement> findByTeacherOrderByDateAscPairNumberAsc(@Param("teacher") Teacher teacher);
+
+    List<Replacement> findAllByDateOrderByPairNumber(LocalDate date);
 }

@@ -8,18 +8,21 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="entity-service" />
+        <module name="rest-service" />
         <module name="telegram-bot" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="entity-service" target="15" />
-      <module name="karmanchik-chtotib" target="15" />
-      <module name="telegram-bot" target="15" />
+    <bytecodeTargetLevel target="11">
+      <module name="entity-service" target="11" />
+      <module name="karmanchik-chtotib" target="11" />
+      <module name="rest-service" target="11" />
+      <module name="telegram-bot" target="11" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="entity-service" options="-parameters" />
+      <module name="rest-service" options="-parameters" />
       <module name="telegram-bot" options="-parameters" />
     </option>
   </component>

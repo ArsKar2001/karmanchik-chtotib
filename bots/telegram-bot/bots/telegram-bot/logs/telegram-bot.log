@@ -1,0 +1,63 @@
+2021-05-15 13:43:40,031 INFO o.s.b.StartupInfoLogger [main] Starting TelegramBotMain using Java 11.0.9 on LAPTOP-MVK7B435 with PID 8612 (C:\Users\arsen\IdeaProjects\karmanchik-chtotib\bots\telegram-bot\target\classes started by arsen in C:\Users\arsen\IdeaProjects\karmanchik-chtotib\bots\telegram-bot)
+2021-05-15 13:43:40,034 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-15 13:43:40,314 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-15 13:43:40,370 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 49 ms. Found 6 JPA repository interfaces.
+2021-05-15 13:43:40,647 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-15 13:43:40,681 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-05-15 13:43:40,764 INFO o.h.a.c.r.j.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-15 13:43:41,115 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2021-05-15 13:43:43,413 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-05-15 13:43:43,425 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-15 13:43:52,123 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-15 13:43:52,130 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-15 13:43:53,504 INFO o.s.b.StartupInfoLogger [main] Started TelegramBotMain in 13.838 seconds (JVM running for 14.429)
+2021-05-15 13:43:58,208 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Получили новый update: Update(updateId=258914695, message=Message(messageId=9375, from=User(id=977606227, firstName=Арсений, isBot=false, lastName=Карманов, userName=l_karmanchik_l, languageCode=ru, canJoinGroups=null, canReadAllGroupMessages=null, supportInlineQueries=null), date=1621053838, chat=Chat(id=977606227, type=private, title=null, firstName=Арсений, lastName=Карманов, userName=l_karmanchik_l, allMembersAreAdministrators=null, photo=null, description=null, inviteLink=null, pinnedMessage=null, stickerSetName=null, canSetStickerSet=null, permissions=null, slowModeDelay=null, bio=null, linkedChatId=null, location=null, messageAutoDeleteTime=null), forwardFrom=null, forwardFromChat=null, forwardDate=null, text=1, entities=null, captionEntities=null, audio=null, document=null, photo=null, sticker=null, video=null, contact=null, location=null, venue=null, animation=null, pinnedMessage=null, newChatMembers=[], leftChatMember=null, newChatTitle=null, newChatPhoto=null, deleteChatPhoto=null, groupchatCreated=null, replyToMessage=null, voice=null, caption=null, superGroupCreated=null, channelChatCreated=null, migrateToChatId=null, migrateFromChatId=null, editDate=null, game=null, forwardFromMessageId=null, invoice=null, successfulPayment=null, videoNote=null, authorSignature=null, forwardSignature=null, mediaGroupId=null, connectedWebsite=null, passportData=null, forwardSenderName=null, poll=null, replyMarkup=null, dice=null, viaBot=null, senderChat=null, proximityAlertTriggered=null, messageAutoDeleteTimerChanged=null, voiceChatStarted=null, voiceChatEnded=null, voiceChatParticipantsInvited=null, voiceChatScheduled=null), inlineQuery=null, chosenInlineQuery=null, callbackQuery=null, editedMessage=null, channelPost=null, editedChannelPost=null, shippingQuery=null, preCheckoutQuery=null, poll=null, pollAnswer=null, myChatMember=null, chatMember=null)
+2021-05-15 13:43:58,884 INFO k.c.t.b.UpdateReceiver [chtotibBot Telegram Executor] ChatUser - ChatUser{id=103446, chatId=977606227, userName='l_karmanchik_l', botState=AUTHORIZED, userState=NONE, role=STUDENT}
+2021-05-15 13:44:04,791 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=<b>------------------------------------------------------------</b>
+Расписание <b>ИКСиС-20-1</b> на <b>17 мая</b> (понедельник):
+<b>------------------------------------------------------------</b>
+	I	<b>|</b>	Иностр. язык	<b>|</b>	58	<b>|</b>	Туркова С.В., Назарова А.А.
+	II	<b>|</b>	Математика	<b>|</b>	58	<b>|</b>	Лямина О.С.
+	III	<b>|</b>	Электроснабжение	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	IV	<b>|</b>	Электроснаб IIп	<b>|</b>	211	<b>|</b>	Рыбас И.А.
+Замены на <b>2021-05-17</b> нет., parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=null, entities=null, allowSendingWithoutReply=null)
+2021-05-15 13:44:04,969 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=1.	Расписание на <b>17 мая</b> (понедельник)
+2.	Расписание на эту неделю (нижняя)
+3.	Узнать расписание педагога
+4.	Изменить анкету, parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text=1, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=2, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=3, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=4, requestContact=null, requestLocation=null, requestPoll=null)]], resizeKeyboard=true, oneTimeKeyboard=false, selective=false), entities=null, allowSendingWithoutReply=null)
+2021-05-15 13:44:13,878 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Получили новый update: Update(updateId=258914696, message=Message(messageId=9378, from=User(id=977606227, firstName=Арсений, isBot=false, lastName=Карманов, userName=l_karmanchik_l, languageCode=ru, canJoinGroups=null, canReadAllGroupMessages=null, supportInlineQueries=null), date=1621053854, chat=Chat(id=977606227, type=private, title=null, firstName=Арсений, lastName=Карманов, userName=l_karmanchik_l, allMembersAreAdministrators=null, photo=null, description=null, inviteLink=null, pinnedMessage=null, stickerSetName=null, canSetStickerSet=null, permissions=null, slowModeDelay=null, bio=null, linkedChatId=null, location=null, messageAutoDeleteTime=null), forwardFrom=null, forwardFromChat=null, forwardDate=null, text=2, entities=null, captionEntities=null, audio=null, document=null, photo=null, sticker=null, video=null, contact=null, location=null, venue=null, animation=null, pinnedMessage=null, newChatMembers=[], leftChatMember=null, newChatTitle=null, newChatPhoto=null, deleteChatPhoto=null, groupchatCreated=null, replyToMessage=null, voice=null, caption=null, superGroupCreated=null, channelChatCreated=null, migrateToChatId=null, migrateFromChatId=null, editDate=null, game=null, forwardFromMessageId=null, invoice=null, successfulPayment=null, videoNote=null, authorSignature=null, forwardSignature=null, mediaGroupId=null, connectedWebsite=null, passportData=null, forwardSenderName=null, poll=null, replyMarkup=null, dice=null, viaBot=null, senderChat=null, proximityAlertTriggered=null, messageAutoDeleteTimerChanged=null, voiceChatStarted=null, voiceChatEnded=null, voiceChatParticipantsInvited=null, voiceChatScheduled=null), inlineQuery=null, chosenInlineQuery=null, callbackQuery=null, editedMessage=null, channelPost=null, editedChannelPost=null, shippingQuery=null, preCheckoutQuery=null, poll=null, pollAnswer=null, myChatMember=null, chatMember=null)
+2021-05-15 13:44:14,481 INFO k.c.t.b.UpdateReceiver [chtotibBot Telegram Executor] ChatUser - ChatUser{id=103446, chatId=977606227, userName='l_karmanchik_l', botState=AUTHORIZED, userState=NONE, role=STUDENT}
+2021-05-15 13:44:19,947 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=Расписание <b>ИКСиС-20-1</b>:
+<b>------------------------------------------------------------</b>
+<b>понедельник</b>:
+	I	<b>|</b>	Иностр. язык	<b>|</b>	58	<b>|</b>	Туркова С.В., Назарова А.А.
+	II	<b>|</b>	Математика	<b>|</b>	58	<b>|</b>	Лямина О.С.
+	III	<b>|</b>	Электроснабжение	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	IV	<b>|</b>	Электроснаб IIп	<b>|</b>	211	<b>|</b>	Рыбас И.А.
+<b>------------------------------------------------------------</b>
+<b>вторник</b>:
+	I	<b>|</b>	МДК 06.01 Технол. выпол.работ	<b>|</b>	4 корп.203	<b>|</b>	Смолина А.В.
+	II	<b>|</b>	МДК 06.01 Технол. выпол.работ	<b>|</b>	4 корп.203	<b>|</b>	Смолина А.В.
+	III	<b>|</b>	МДК 06.01 Технол. выпол.работ	<b>|</b>	4 корп.203	<b>|</b>	Смолина А.В.
+<b>------------------------------------------------------------</b>
+<b>среда</b>:
+	I	<b>|</b>	Инжен. комп. граф.	<b>|</b>	58, 22	<b>|</b>	Лончаков С.В., Шевкун А.В.
+	II	<b>|</b>	Инжен. комп. граф.	<b>|</b>	58, 22	<b>|</b>	Лончаков С.В., Шевкун А.В.
+	III	<b>|</b>	История	<b>|</b>	58	<b>|</b>	Турчина Т.С.
+	IV	<b>|</b>	Компьютерные сети	<b>|</b>	58	<b>|</b>	Семченкова И.И.
+<b>------------------------------------------------------------</b>
+<b>четверг</b>:
+	I	<b>|</b>	Психология общения	<b>|</b>	58	<b>|</b>	Барвинская Т.В.
+	II	<b>|</b>	Электронная техника	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	III	<b>|</b>	Электроснабжение	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	IV	<b>|</b>	Компьютерные сети	<b>|</b>	58	<b>|</b>	Семченкова И.И.
+<b>------------------------------------------------------------</b>
+<b>пятница</b>:
+	I	<b>|</b>	Психология общения	<b>|</b>	58	<b>|</b>	Барвинская Т.В.
+	II	<b>|</b>	Электронная техника	<b>|</b>	58	<b>|</b>	Рыбас И.А.
+	III	<b>|</b>	Физ.культура	<b>|</b>	-	<b>|</b>	Травкина В.Н.
+, parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=null, entities=null, allowSendingWithoutReply=null)
+2021-05-15 13:44:20,130 INFO k.c.t.b.Bot [chtotibBot Telegram Executor] Новый объект для отправки: SendMessage(chatId=977606227, text=1.	Расписание на <b>17 мая</b> (понедельник)
+2.	Расписание на эту неделю (нижняя)
+3.	Узнать расписание педагога
+4.	Изменить анкету, parseMode=html, disableWebPagePreview=null, disableNotification=null, replyToMessageId=null, replyMarkup=ReplyKeyboardMarkup(keyboard=[[KeyboardButton(text=1, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=2, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=3, requestContact=null, requestLocation=null, requestPoll=null), KeyboardButton(text=4, requestContact=null, requestLocation=null, requestPoll=null)]], resizeKeyboard=true, oneTimeKeyboard=false, selective=false), entities=null, allowSendingWithoutReply=null)

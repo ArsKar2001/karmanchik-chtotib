@@ -30,11 +30,14 @@ public class StartHandler implements Handler {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) {
         UserState state = chatUser.getUserState();
-        return switch (state) {
-            case NONE -> welcomeMessage(chatUser);
-            case START -> startMessage(chatUser);
-            default -> Collections.emptyList();
-        };
+        switch (state) {
+            case NONE:
+                return welcomeMessage(chatUser);
+            case START:
+                return startMessage(chatUser);
+            default:
+                return Collections.emptyList();
+        }
     }
 
     private List<PartialBotApiMethod<? extends Serializable>> startMessage(ChatUser chatUser) {

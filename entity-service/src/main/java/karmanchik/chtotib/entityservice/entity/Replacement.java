@@ -17,7 +17,7 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class Replacement extends BaseEntity {
     @Column(name = "pair_number")
-    private Integer pairNumber;
+    private String pairNumber;
 
     @Column(name = "date_value")
     private LocalDate date;
