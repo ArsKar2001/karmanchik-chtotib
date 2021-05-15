@@ -20,6 +20,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -64,8 +65,7 @@ public class Helper {
         Role role = chatUser.getRole();
 
 
-        markup.setKeyboard(List.of(
-                TelegramUtil.createKeyboardRow(MainCommand.vals())));
+        markup.setKeyboard(List.of(TelegramUtil.createKeyboardRow(MainCommand.vals())));
         return role.equals(Role.STUDENT) ?
                 TelegramUtil.createMessageTemplate(chatUser)
                         .text("1.\tРасписание на " + "<b>" + nextSchoolDate.format(DateTimeFormatter.ofPattern("dd MMMM", Helper.getLocale())) + "</b>" + " (" + name + ")\n" +
@@ -85,8 +85,17 @@ public class Helper {
         return Locale.forLanguageTag("ru");
     }
 
-    public static List<PartialBotApiMethod<? extends Serializable>> createSelectCourseButtonPanel(ChatUser save) {
-        return null;
+    public static List<PartialBotApiMethod<? extends Serializable>> createSelectCourseButtonPanel(ChatUser chatUser) {
+        List<String> names = Course.names();
+        Collections.sort(names);
+        KeyboardRow row = TelegramUtil.createKeyboardRow(names.toArray());
+
+        return List.of(TelegramUtil.createMessageTemplate(chatUser)
+                .text("Выбери курс:")
+                .replyMarkup(TelegramUtil.createReplyKeyboardMarkup()
+                        .keyboardRow(row)
+                        .build())
+                .build());
     }
 
     public static boolean isNumeric(String message) {

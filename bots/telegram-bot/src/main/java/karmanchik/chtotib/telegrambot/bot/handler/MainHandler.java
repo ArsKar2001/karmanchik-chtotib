@@ -3,10 +3,11 @@ package karmanchik.chtotib.telegrambot.bot.handler;
 import karmanchik.chtotib.entityservice.entity.ChatUser;
 import karmanchik.chtotib.entityservice.exception.ResourceNotFoundException;
 import karmanchik.chtotib.telegrambot.bot.command.MainCommand;
+import karmanchik.chtotib.telegrambot.bot.helper.Helper;
+import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 
 import java.io.Serializable;
-import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
@@ -27,7 +28,9 @@ public abstract class MainHandler implements Handler {
                     throw new IllegalArgumentException();
             }
         }
-        return Collections.emptyList();
+        return List.of(
+                Helper.mainMessage(chatUser)
+        );
     }
 
     protected abstract List<PartialBotApiMethod<? extends Serializable>> editProfile(ChatUser chatUser);
