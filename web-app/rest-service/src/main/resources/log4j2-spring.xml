@@ -7,8 +7,8 @@
         </Console>
 
         <RollingFile name="RollingFile"
-                     fileName="./web-app/rest-service/logs/rest-service.log"
-                     filePattern="./web-app/rest-service/logs/rest-service%d{-dd-MM-yyyy}-%i.log.gz">
+                     fileName="./logs/rest-service.log"
+                     filePattern="./logs/rest-service%d{-dd-MM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>

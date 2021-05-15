@@ -7,8 +7,8 @@
         </Console>
 
         <RollingFile name="RollingFile"
-                     fileName="./bots/telegram-bot/logs/telegram-bot.log"
-                     filePattern="./bots/telegram-bot/logs/telegram-bot%d{-dd-MM-yyyy}-%i.log.gz">
+                     fileName="./logs/telegram-bot.log"
+                     filePattern="./logs/telegram-bot%d{-dd-MM-yyyy}-%i.log.gz">
             <PatternLayout>
                 <pattern>%d %p %C{1.} [%t] %m%n</pattern>
             </PatternLayout>
