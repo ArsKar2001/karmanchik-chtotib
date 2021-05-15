@@ -36,9 +36,8 @@ import java.util.stream.Collectors;
 @Component
 @RequiredArgsConstructor
 public class Helper {
-
-    private JpaGroupRepository groupRepository;
-    private JpaChatUserRepository userRepository;
+    private final JpaGroupRepository groupRepository;
+    private final JpaChatUserRepository userRepository;
 
     public static PartialBotApiMethod<? extends Serializable> selectRole(ChatUser chatUser) {
         return TelegramUtil.createMessageTemplate(chatUser)
