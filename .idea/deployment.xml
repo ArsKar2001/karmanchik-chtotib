@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="PublishConfigData" autoUpload="Always" serverName="chtotib" remoteFilesAllowedToDisappearOnAutoupload="false">
+    <serverData>
+      <paths name="chtotib">
+        <serverdata>
+          <mappings>
+            <mapping deploy="/karmanchik-chtotib" local="$PROJECT_DIR$" web="" />
+          </mappings>
+        </serverdata>
+      </paths>
+    </serverData>
+    <option name="myAutoUpload" value="ALWAYS" />
+  </component>
+</project>
