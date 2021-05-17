@@ -1,6 +1,7 @@
 bot:
   name: 'chtotibBot'
   token: '1561541329:AAFr495joT5WNwzbx3vRPKHOGg7p__LhTKw'
+  check-date-period: 24
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/d4l15ha0q7fik6
