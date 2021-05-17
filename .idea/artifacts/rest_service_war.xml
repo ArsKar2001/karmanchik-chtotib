@@ -7,7 +7,7 @@
         <packaging>war</packaging>
       </options>
     </properties>
-    <root id="archive" name="rest-api.war">
+    <root id="archive" name="chtotib-web-app.war">
       <element id="artifact" artifact-name="rest-service:war exploded" />
     </root>
   </artifact>

@@ -12,6 +12,7 @@ import karmanchik.chtotib.restservice.assembler.TeacherAssembler;
 import karmanchik.chtotib.restservice.assembler.model.TeacherModel;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -113,7 +114,7 @@ public class TeacherController implements Controller<Teacher> {
     @Override
     @GetMapping("/teachers/")
     public ResponseEntity<?> getAll() {
-        var models = teacherAssembler.toCollectionModel(teacherRepository.findAll());
+        var models = teacherAssembler.toCollectionModel(teacherRepository.findAll(Sort.by("name")));
         return ResponseEntity.ok()
                 .body(models);
     }
