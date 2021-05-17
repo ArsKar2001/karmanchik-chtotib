@@ -38,7 +38,7 @@ public class CheckDateDaemon {
         this.userRepository = userRepository;
     }
 
-    @PostConstruct
+//    @PostConstruct
     public void start() {
         log.info("Start {} ...", getClass().getName());
         Executors.newSingleThreadScheduledExecutor()
