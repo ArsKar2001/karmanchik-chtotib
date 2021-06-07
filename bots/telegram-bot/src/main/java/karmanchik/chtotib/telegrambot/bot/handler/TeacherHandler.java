@@ -75,7 +75,7 @@ public class TeacherHandler extends MainHandler {
                     .append("\n"));
         } else {
             message.append(MESSAGE_SPLIT).append("\n")
-                    .append("Замены нет.").append("\n")
+                    .append("Замены еще нет.").append("\n")
                     .append(MESSAGE_SPLIT).append("\n");
         }
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
