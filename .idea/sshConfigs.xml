@@ -2,7 +2,10 @@
 <project version="4">
   <component name="SshConfigs">
     <configs>
-      <sshConfig authType="PASSWORD" host="chtotib.ru" id="4cd1606f-3533-45ab-871e-6ebd343f0e5a" port="2322" nameFormat="DESCRIPTIVE" username="karmanchik" />
+      <sshConfig authType="PASSWORD" host="chtotib.ru" id="4cd1606f-3533-45ab-871e-6ebd343f0e5a" port="2322" customName="karmanchik@chtotib" nameFormat="CUSTOM" username="karmanchik">
+        <option name="customName" value="karmanchik@chtotib" />
+      </sshConfig>
+      <sshConfig authType="PASSWORD" host="192.168.1.23" id="4cd1606f-3533-45ab-871e-6ebd343f0e5a" port="22" nameFormat="DESCRIPTIVE" username="karmanchik" />
     </configs>
   </component>
 </project>

@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="e532394c-6840-416c-893a-44ad282d95cf" name="chtotib">
-        <fileTransfer rootFolder="/home/project" accessType="SFTP" host="chtotib.ru" port="2322" sshConfigId="4cd1606f-3533-45ab-871e-6ebd343f0e5a" sshConfig="karmanchik@chtotib.ru:2322 password">
+        <fileTransfer rootFolder="/home/project" accessType="SFTP" host="chtotib.ru" port="2322" sshConfigId="4cd1606f-3533-45ab-871e-6ebd343f0e5a" sshConfig="karmanchik@chtotib">
           <advancedOptions>
             <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
           </advancedOptions>

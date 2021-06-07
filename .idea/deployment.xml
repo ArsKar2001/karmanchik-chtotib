@@ -5,7 +5,7 @@
       <paths name="chtotib">
         <serverdata>
           <mappings>
-            <mapping deploy="/karmanchik-chtotib" local="$PROJECT_DIR$" web="" />
+            <mapping deploy="/home/project/karmanchik-chtotib" local="$PROJECT_DIR$" web="" />
           </mappings>
         </serverdata>
       </paths>

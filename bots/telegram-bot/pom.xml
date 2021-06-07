@@ -24,6 +24,9 @@
             <artifactId>telegrambots-spring-boot-starter</artifactId>
             <version>5.2.0</version>
         </dependency>
+        <!-- https://mvnrepository.com/artifact/gui.ava/html2image -->
+        <!-- https://mvnrepository.com/artifact/gui.ava/html2image -->
+
     </dependencies>
 
     <properties>
