@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="SshConfigs">
+    <configs>
+      <sshConfig authType="PASSWORD" host="chtotib.ru" id="7342934e-cb25-43a8-a1af-8081690f3a9d" port="2322" nameFormat="DESCRIPTIVE" username="karmanchik" />
+    </configs>
+  </component>
+</project>

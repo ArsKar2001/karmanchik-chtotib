@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="ff16cc17-8e22-4a8f-aee7-c28ae6e980fa" name="chtotib.ru">
+        <fileTransfer rootFolder="/home/project/karmanchik-chtotib" accessType="SFTP" host="chtotib.ru" port="2322" sshConfigId="7342934e-cb25-43a8-a1af-8081690f3a9d" sshConfig="karmanchik@chtotib.ru:2322 password">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private" passiveMode="true" shareSSLContext="true" />
+          </advancedOptions>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>
