@@ -1,0 +1,33 @@
+2021-05-20 08:55:36,562 INFO o.s.b.StartupInfoLogger [main] Starting RestServiceMain v1.0-SNAPSHOT using Java 11.0.11 on TelegramBot with PID 5845 (/home/project/karmanchik-chtotib/web-app/rest-service/target/chtotib-web-app.war started by root in /home/project/karmanchik-chtotib)
+2021-05-20 08:55:36,580 INFO o.s.b.SpringApplication [main] No active profile set, falling back to default profiles: default
+2021-05-20 08:55:37,821 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-05-20 08:55:38,000 INFO o.s.d.r.c.RepositoryConfigurationDelegate [main] Finished Spring Data repository scanning in 162 ms. Found 6 JPA repository interfaces.
+2021-05-20 08:55:39,483 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat initialized with port(s): 8080 (http)
+2021-05-20 08:55:39,504 INFO o.a.j.l.DirectJDKLog [main] Initializing ProtocolHandler ["http-nio-8080"]
+2021-05-20 08:55:39,505 INFO o.a.j.l.DirectJDKLog [main] Starting service [Tomcat]
+2021-05-20 08:55:39,506 INFO o.a.j.l.DirectJDKLog [main] Starting Servlet engine: [Apache Tomcat/9.0.45]
+2021-05-20 08:55:39,511 INFO o.a.j.l.DirectJDKLog [main] An older version [1.2.21] of the Apache Tomcat Native library is installed, while Tomcat recommends a minimum version of [1.2.23]
+2021-05-20 08:55:39,512 INFO o.a.j.l.DirectJDKLog [main] Loaded Apache Tomcat Native library [1.2.21] using APR version [1.6.5].
+2021-05-20 08:55:39,513 INFO o.a.j.l.DirectJDKLog [main] APR capabilities: IPv6 [true], sendfile [true], accept filters [false], random [true].
+2021-05-20 08:55:39,513 INFO o.a.j.l.DirectJDKLog [main] APR/OpenSSL configuration: useAprConnector [false], useOpenSSL [true]
+2021-05-20 08:55:39,519 INFO o.a.j.l.DirectJDKLog [main] OpenSSL successfully initialized [OpenSSL 1.1.1d  10 Sep 2019]
+2021-05-20 08:55:42,932 INFO o.a.j.l.DirectJDKLog [main] Initializing Spring embedded WebApplicationContext
+2021-05-20 08:55:42,933 INFO o.s.b.w.s.c.ServletWebServerApplicationContext [main] Root WebApplicationContext: initialization completed in 6266 ms
+2021-05-20 08:55:43,332 INFO o.h.j.i.u.LogHelper [main] HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-05-20 08:55:43,463 INFO o.h.Version [main] HHH000412: Hibernate ORM core version 5.4.30.Final
+2021-05-20 08:55:43,804 INFO o.h.a.c.r.j.JavaReflectionManager [main] HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-05-20 08:55:44,038 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Starting...
+2021-05-20 08:55:44,564 INFO c.z.h.HikariDataSource [main] HikariPool-1 - Start completed.
+2021-05-20 08:55:44,607 INFO o.h.d.Dialect [main] HHH000400: Using dialect: org.hibernate.dialect.PostgreSQLDialect
+2021-05-20 08:55:46,489 INFO o.h.e.t.j.p.i.JtaPlatformInitiator [main] HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-05-20 08:55:46,508 INFO o.s.o.j.AbstractEntityManagerFactoryBean [main] Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-05-20 08:55:48,304 INFO o.s.s.c.ExecutorConfigurationSupport [main] Initializing ExecutorService 'applicationTaskExecutor'
+2021-05-20 08:55:48,427 INFO k.c.r.c.MyConfiguration [main] Create WebMvcConfigurer
+2021-05-20 08:55:48,517 INFO o.s.b.a.w.s.WelcomePageHandlerMapping [main] Adding welcome page: class path resource [static/index.html]
+2021-05-20 08:55:48,785 INFO o.a.j.l.DirectJDKLog [main] Starting ProtocolHandler ["http-nio-8080"]
+2021-05-20 08:55:48,817 INFO o.s.b.w.e.t.TomcatWebServer [main] Tomcat started on port(s): 8080 (http) with context path '/chtotib-web-app'
+2021-05-20 08:55:48,838 INFO o.s.b.StartupInfoLogger [main] Started RestServiceMain in 13.412 seconds (JVM running for 15.355)
+2021-05-20 08:56:09,966 INFO o.s.s.c.ExecutorConfigurationSupport [SpringContextShutdownHook] Shutting down ExecutorService 'applicationTaskExecutor'
+2021-05-20 08:56:09,972 INFO o.s.o.j.AbstractEntityManagerFactoryBean [SpringContextShutdownHook] Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-05-20 08:56:09,980 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown initiated...
+2021-05-20 08:56:10,025 INFO c.z.h.HikariDataSource [SpringContextShutdownHook] HikariPool-1 - Shutdown completed.

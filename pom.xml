@@ -6,7 +6,6 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>karmanchik-chtotib</name>
-
     <modules>
         <module>entity-service</module>
         <module>bots/telegram-bot</module>

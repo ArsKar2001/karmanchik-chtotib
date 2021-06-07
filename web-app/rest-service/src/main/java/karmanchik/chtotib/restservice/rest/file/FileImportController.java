@@ -68,16 +68,21 @@ public class FileImportController {
             parser.parseToListMap(mFile.getBytes()).stream()
                     .flatMap(Collection::stream)
                     .forEach(map -> {
+                        Group group = new Group();
                         String groupName = (String) map.get("group_name");
                         String pair = (String) map.get("pair");
                         String discipline = (String) map.get("discipline");
                         String auditorium = (String) map.get("auditorium");
                         List<String> teacherNameList = ((List<String>) map.get("teachers"));
-                        String validGroupName = ValidGroupName.getValidGroupName(groupName);
-                        Group group = groups.stream()
-                                .filter(g -> g.getName().equalsIgnoreCase(validGroupName))
-                                .findFirst()
-                                .orElseThrow(() -> new ResourceNotFoundException(groupName, Group.class));
+                        if (ValidGroupName.isGroupName(groupName)) {
+                            String validGroupName = ValidGroupName.getValidGroupName(groupName);
+                            group = groups.stream()
+                                    .filter(g -> g.getName().equalsIgnoreCase(validGroupName))
+                                    .findFirst()
+                                    .orElseThrow(() -> new ResourceNotFoundException(groupName, Group.class));
+                        } else {
+                            EXCEPTION_LIST.add(new StringReadException(groupName, "ИСиП-17-1").getMessage());
+                        }
                         List<Teacher> teachersByRepl = new ArrayList<>();
                         for (String s : teacherNameList) {
                             if (!s.trim().isBlank()) {
@@ -87,7 +92,7 @@ public class FileImportController {
                                             .findFirst()
                                             .orElseThrow(() -> new ResourceNotFoundException(s, Teacher.class)));
                                 } else {
-                                    throw new StringReadException(s, "Иванов А.А.");
+                                    EXCEPTION_LIST.add(new StringReadException(s, "Иванов И.И.").getMessage());
                                 }
                             }
                         }
@@ -100,13 +105,25 @@ public class FileImportController {
                                 .pairNumber(pair)
                                 .build());
                     });
-            replacementRepository.deleteAll();
-            log.info("Save replacements [{}]...", replacements.size());
-            return ResponseEntity.ok()
-                    .body(replacementRepository.saveAll(replacements));
+            if (EXCEPTION_LIST.isEmpty()) {
+                replacementRepository.deleteAll();
+                log.info("Save replacements [{}]: {}", replacements.size(), replacements);
+                replacementRepository.saveAll(replacements);
+                return ResponseEntity.ok()
+                        .body("OK");
+            }
+            else {
+                log.warn("Error import: {}", EXCEPTION_LIST);
+                return ResponseEntity.ok()
+                        .body(Map.of(
+                                "status", "FAIL",
+                                "trace", EXCEPTION_LIST
+                        ));
+            }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok()
+                    .body(e.getMessage());
         }
     }
 
@@ -179,11 +196,11 @@ public class FileImportController {
             if (EXCEPTION_LIST.isEmpty()) {
                 deleteLessons();
 
-                log.info("Importing lessons...");
+                log.info("Importing lessons {}: {}", lessons.size(), lessons);
                 lessonsRepository.saveAll(lessons);
                 log.info("Importing lessons... OK");
             } else {
-                return ResponseEntity.badRequest()
+                return ResponseEntity.ok()
                         .body(Map.of(
                                 "status", "fail",
                                 "trace", EXCEPTION_LIST
@@ -196,7 +213,7 @@ public class FileImportController {
             ));
         } catch (RuntimeException | IOException | InvalidFormatException e) {
             log.error(e.getMessage(), e);
-            return ResponseEntity.badRequest().body(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
         }
     }
 

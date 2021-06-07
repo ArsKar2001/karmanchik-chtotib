@@ -60,10 +60,11 @@ public class ReplacementParser extends BaseParser {
     }
 
     public LocalDate getDateFromFileName(String fileName) {
+        String s1 = fileName.replace('_', ' ');
         Pattern pattern = Pattern.compile("\\d{1,2}\\s+\\S+\\s");
-        Matcher matcher = pattern.matcher(fileName);
+        Matcher matcher = pattern.matcher(s1);
         if (matcher.find()) {
-            String s = fileName.substring(matcher.start(), matcher.end());
+            String s = s1.substring(matcher.start(), matcher.end());
             String dateStr = (s + Year.now()).trim();
             return LocalDate.parse(dateStr, DateTimeFormatter.ofPattern("d MMMM yyyy", Locale.forLanguageTag("ru")));
         }

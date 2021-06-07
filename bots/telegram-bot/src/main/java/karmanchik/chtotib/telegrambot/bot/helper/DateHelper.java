@@ -22,6 +22,11 @@ public class DateHelper {
         return now.toLocalDate();
     }
 
+    /**
+     * Возвращает академический год поступления курса.
+     * @param course объект {@link Course}
+     * @return объект {@link Year}
+     */
     public static Year getAcademicYearByCourse(Course course) {
         LocalDate now = LocalDate.now();
         Month nowMonth = now.getMonth();

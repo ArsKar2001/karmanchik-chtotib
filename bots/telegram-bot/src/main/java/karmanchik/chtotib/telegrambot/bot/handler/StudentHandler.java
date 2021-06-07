@@ -44,8 +44,8 @@ public class StudentHandler extends MainHandler {
         WeekType weekType = DateHelper.getWeekType();
         String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Helper.getLocale());
 
-        List<Lesson> lessons = lessonsRepository.findByGroup(group);
-        List<Replacement> replacements = replacementRepository.findByGroupOrderByDateAscPairNumberAsc(group);
+        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
+        List<Replacement> replacements = replacementRepository.findByGroupAndDateOrderByDateAscPairNumberAsc(group, date);
 
         StringBuilder message = new StringBuilder();
         if (!lessons.isEmpty()) {
@@ -75,7 +75,9 @@ public class StudentHandler extends MainHandler {
                             .collect(Collectors.joining(", ")))
                     .append("\n"));
         } else {
-            message.append("Замены на ").append("<b>").append(date).append("</b>").append(" нет.");
+            message.append(MESSAGE_SPLIT).append("\n")
+                    .append("Замены нет.").append("\n")
+                    .append(MESSAGE_SPLIT).append("\n");
         }
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
                         .text(message.toString()).build(),
@@ -91,7 +93,7 @@ public class StudentHandler extends MainHandler {
         WeekType weekType = DateHelper.getWeekType();
         StringBuilder message = new StringBuilder();
 
-        List<Lesson> lessons = lessonsRepository.findByGroup(group);
+        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
         message.append("Расписание ").append("<b>").append(group.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)

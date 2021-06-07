@@ -47,7 +47,7 @@ public class TeacherHandler extends MainHandler {
         String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Helper.getLocale());
 
         List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
-        List<Replacement> replacements = replacementRepository.findByTeacherOrderByDateAscPairNumberAsc(teacher);
+        List<Replacement> replacements = replacementRepository.findByTeacherAndDateOrderByDateAscPairNumberAsc(teacher, date);
 
         StringBuilder message = new StringBuilder();
         if (!lessons.isEmpty()) {
@@ -74,7 +74,9 @@ public class TeacherHandler extends MainHandler {
                     .append(replacement.getGroup().getName())
                     .append("\n"));
         } else {
-            message.append("Замены на ").append("<b>").append(date).append("</b>").append(" нет.");
+            message.append(MESSAGE_SPLIT).append("\n")
+                    .append("Замены нет.").append("\n")
+                    .append(MESSAGE_SPLIT).append("\n");
         }
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
                         .text(message.toString()).build(),

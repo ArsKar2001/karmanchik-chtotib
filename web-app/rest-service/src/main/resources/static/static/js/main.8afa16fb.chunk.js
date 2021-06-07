@@ -19,7 +19,7 @@
                 return L.a.wrap((function (e) {
                     for (; ;) switch (e.prev = e.next) {
                         case 0:
-                            return e.prev = 0, e.next = 3, H.a.get("http://localhost:8080/api/groups/");
+                            return e.prev = 0, e.next = 3, H.a.get("http://192.168.1.23:8080/api/groups/");
                         case 3:
                             return a = e.sent, e.abrupt("return", a);
                         case 7:
@@ -38,7 +38,7 @@
                 return L.a.wrap((function (e) {
                     for (; ;) switch (e.prev = e.next) {
                         case 0:
-                            return e.prev = 0, e.next = 3, H.a.post(" http://localhost:8080/api/groups", t);
+                            return e.prev = 0, e.next = 3, H.a.post(" http://192.168.1.23:8080/api/groups", t);
                         case 3:
                             return n = e.sent, e.abrupt("return", n);
                         case 7:
@@ -61,7 +61,7 @@
                 return L.a.wrap((function (e) {
                     for (; ;) switch (e.prev = e.next) {
                         case 0:
-                            return e.prev = 0, e.next = 3, H.a.get("http://localhost:8080/api/teachers/");
+                            return e.prev = 0, e.next = 3, H.a.get("http://192.168.1.23:8080/api/teachers/");
                         case 3:
                             return t = e.sent, e.abrupt("return", t);
                         case 7:
@@ -103,7 +103,7 @@
                     for (; ;) switch (e.prev = e.next) {
                         case 0:
                             try {
-                                H.a.post("http://localhost:8080/api/lessons", t, {headers: {"Content-Type": "application/json"}}).then((function (e) {
+                                H.a.post("http://192.168.1.23:8080/api/lessons", t, {headers: {"Content-Type": "application/json"}}).then((function (e) {
                                     console.log(e)
                                 })).catch((function (e) {
                                     console.log(e)

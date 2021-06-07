@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 
@@ -22,12 +21,12 @@ public interface JpaReplacementRepository extends JpaRepository<Replacement, Int
 
     Optional<Replacement> getByGroupAndDate(Group group, @NotNull LocalDate date);
 
-    List<Replacement> findByGroupOrderByDateAscPairNumberAsc(Group group);
+    List<Replacement> findByGroupAndDateOrderByDateAscPairNumberAsc(Group group, LocalDate date);
 
     @Query("SELECT r FROM Replacement r " +
-            "WHERE :teacher member of r.teachers " +
+            "WHERE :teacher member of r.teachers AND r.date = :date " +
             "ORDER BY r.date, r.pairNumber")
-    List<Replacement> findByTeacherOrderByDateAscPairNumberAsc(@Param("teacher") Teacher teacher);
+    List<Replacement> findByTeacherAndDateOrderByDateAscPairNumberAsc(@Param("teacher") Teacher teacher, LocalDate date);
 
     List<Replacement> findAllByDateOrderByPairNumber(LocalDate date);
 }
