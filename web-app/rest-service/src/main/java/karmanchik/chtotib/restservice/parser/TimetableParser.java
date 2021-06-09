@@ -3,7 +3,7 @@ package karmanchik.chtotib.restservice.parser;
 import karmanchik.chtotib.entityservice.enums.WeekType;
 import karmanchik.chtotib.restservice.parser.validate.ValidGroupName;
 import karmanchik.chtotib.restservice.parser.validate.ValidText;
-import karmanchik.chtotib.restservice.parser.word.Word;
+import karmanchik.chtotib.restservice.utils.WordUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -164,7 +164,7 @@ public class TimetableParser extends BaseParser {
     }
 
     private List<List<List<String>>> wordFileToList(byte[] bytes) throws InvalidFormatException, IOException {
-        return Word.toTablesRowsLists(bytes).stream()
+        return WordUtils.toTablesRowsLists(bytes).stream()
                 .map(table -> table.stream()
                         .map(row -> row.stream()
                                 .map(String::trim)

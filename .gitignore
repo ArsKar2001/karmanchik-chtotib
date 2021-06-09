@@ -5,5 +5,5 @@
 ./web-app/rest-service/target/
 ./web-app/rest-service/logs/
 ./logs/
-./bots/telegram-bot/src/main/resources/application.yaml
-./web-app/rest-service/src/main/resources/application.yaml
+bots/telegram-bot/src/main/resources/application.yaml
+web-app/rest-service/src/main/resources/application.yaml

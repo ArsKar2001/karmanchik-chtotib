@@ -11,8 +11,8 @@ import karmanchik.chtotib.entityservice.exception.ResourceNotFoundException;
 import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaLessonsRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaTeacherRepository;
-import karmanchik.chtotib.telegrambot.bot.helper.DateHelper;
-import karmanchik.chtotib.telegrambot.bot.helper.Helper;
+import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
+import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -81,7 +81,7 @@ public class TimetableTeacherHandler implements Handler {
         if (message.equalsIgnoreCase(CANCEL)) {
             chatUser.setUserState(UserState.INPUT_TEXT);
             return start(userRepository.save(chatUser));
-        } else if (Helper.isNumeric(message)) {
+        } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
             Teacher teacher = teacherRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException(id, Teacher.class));
@@ -94,7 +94,7 @@ public class TimetableTeacherHandler implements Handler {
     }
 
     private PartialBotApiMethod<? extends Serializable> createMessage(Teacher teacher, ChatUser chatUser) {
-        WeekType weekType = DateHelper.getWeekType();
+        WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
 
         List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
@@ -104,13 +104,13 @@ public class TimetableTeacherHandler implements Handler {
                 .distinct()
                 .sorted()
                 .forEach(day -> {
-                    String displayName = DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Helper.getLocale());
+                    String displayName = DayOfWeek.of(day).getDisplayName(TextStyle.FULL, HelperUtils.getLocale());
                     message.append(MESSAGE_SPLIT).append("\n")
                             .append("<b>").append(displayName).append("</b>:").append("\n");
                     lessons.stream()
                             .filter(lesson -> lesson.getDay().equals(day))
                             .filter(lesson -> lesson.getWeekType() == weekType || lesson.getWeekType() == WeekType.NONE)
-                            .forEach(Helper.getLessonTeacher(message));
+                            .forEach(HelperUtils.getLessonTeacher(message));
                 });
         return TelegramUtil.createMessageTemplate(chatUser)
                 .text(message.toString()).build();
@@ -139,7 +139,7 @@ public class TimetableTeacherHandler implements Handler {
 
     private PartialBotApiMethod<? extends Serializable> cancel(ChatUser chatUser) {
         chatUser.setUserState(UserState.NONE);
-        return Helper.mainMessage(userRepository.save(chatUser));
+        return HelperUtils.mainMessage(userRepository.save(chatUser));
     }
 
     public BotState operatedBotState() {

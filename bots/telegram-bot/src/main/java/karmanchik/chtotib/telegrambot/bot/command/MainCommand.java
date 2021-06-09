@@ -4,6 +4,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Класс-перечисление для основных команд чат-бота.
+ */
 public enum MainCommand {
     COMMAND_1(1),
     COMMAND_2(2),
@@ -16,6 +19,10 @@ public enum MainCommand {
         this.val = val;
     }
 
+    /**
+     * Вернет коллекцию имен всех команд
+     * @return Коллекция имен
+     */
     public static List<String> names() {
         return Arrays.stream(values())
                 .map(Enum::name)
@@ -28,6 +35,11 @@ public enum MainCommand {
                 .toArray();
     }
 
+    /**
+     * Вернет объект MainCommand
+     * @param o Любой объект
+     * @return
+     */
     public static MainCommand get(Object o) {
         for (MainCommand command : values()) {
             if (command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o))
@@ -36,6 +48,11 @@ public enum MainCommand {
         return null;
     }
 
+    /**
+     * Проверяет входной объект на соответствие MainCommand
+     * @param o Любой объект
+     * @return Вернет true, если входной объект соответстует елементу MainCommand, иначе - false
+     */
     public static boolean isCommand(Object o) {
         for (MainCommand command : values()) {
             if (command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o))

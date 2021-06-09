@@ -12,8 +12,8 @@ import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaLessonsRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaReplacementRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaTeacherRepository;
-import karmanchik.chtotib.telegrambot.bot.helper.DateHelper;
-import karmanchik.chtotib.telegrambot.bot.helper.Helper;
+import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
+import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -23,6 +23,7 @@ import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 import java.io.Serializable;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.TextStyle;
 import java.util.List;
@@ -42,9 +43,9 @@ public class TeacherHandler extends MainHandler {
     public List<PartialBotApiMethod<? extends Serializable>> getTimetableNextDay(ChatUser chatUser) {
         Teacher teacher = teacherRepository.findByChatUser(chatUser)
                 .orElseThrow();
-        LocalDate date = DateHelper.getNextSchoolDate();
-        WeekType weekType = DateHelper.getWeekType();
-        String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Helper.getLocale());
+        LocalDate date = DateHelperUtils.getNextSchoolDate(LocalDateTime.now());
+        WeekType weekType = DateHelperUtils.getWeekType();
+        String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, HelperUtils.getLocale());
 
         List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
         List<Replacement> replacements = replacementRepository.findByTeacherAndDateOrderByDateAscPairNumberAsc(teacher, date);
@@ -53,12 +54,12 @@ public class TeacherHandler extends MainHandler {
         if (!lessons.isEmpty()) {
             message.append(MESSAGE_SPLIT).append("\n")
                     .append("Расписание ").append("<b>").append(teacher.getName()).append("</b>").append(" на ").append("<b>")
-                    .append(date.format(DateTimeFormatter.ofPattern("dd MMMM", Helper.getLocale()))).append("</b>").append(" (").append(name).append("):").append("\n")
+                    .append(date.format(DateTimeFormatter.ofPattern("dd MMMM", HelperUtils.getLocale()))).append("</b>").append(" (").append(name).append("):").append("\n")
                     .append(MESSAGE_SPLIT).append("\n");
             lessons.stream()
                     .filter(lesson -> lesson.getDay() == date.getDayOfWeek().getValue())
                     .filter(lesson -> lesson.getWeekType() == weekType || lesson.getWeekType() == WeekType.NONE)
-                    .forEach(Helper.getLessonTeacher(message));
+                    .forEach(HelperUtils.getLessonTeacher(message));
         } else {
             message.append("Пар на ").append("<b>").append(date).append("</b>").append(" нет.");
         }
@@ -80,7 +81,7 @@ public class TeacherHandler extends MainHandler {
         }
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
                         .text(message.toString()).build(),
-                Helper.mainMessage(chatUser)
+                HelperUtils.mainMessage(chatUser)
         );
     }
 
@@ -89,7 +90,7 @@ public class TeacherHandler extends MainHandler {
 
         Teacher teacher = teacherRepository.findByChatUser(chatUser)
                 .orElseThrow();
-        WeekType weekType = DateHelper.getWeekType();
+        WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
 
         List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
@@ -99,17 +100,17 @@ public class TeacherHandler extends MainHandler {
                 .distinct()
                 .sorted()
                 .forEach(day -> {
-                    String displayName = DayOfWeek.of(day).getDisplayName(TextStyle.FULL, Helper.getLocale());
+                    String displayName = DayOfWeek.of(day).getDisplayName(TextStyle.FULL, HelperUtils.getLocale());
                     message.append(MESSAGE_SPLIT).append("\n")
                             .append("<b>").append(displayName).append("</b>:").append("\n");
                     lessons.stream()
                             .filter(lesson -> lesson.getDay().equals(day))
                             .filter(lesson -> lesson.getWeekType() == weekType || lesson.getWeekType() == WeekType.NONE)
-                            .forEach(Helper.getLessonTeacher(message));
+                            .forEach(HelperUtils.getLessonTeacher(message));
                 });
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
                         .text(message.toString()).build(),
-                Helper.mainMessage(chatUser)
+                HelperUtils.mainMessage(chatUser)
         );
     }
 
@@ -124,7 +125,7 @@ public class TeacherHandler extends MainHandler {
         chatUser.setBotState(BotState.REG);
         chatUser.setUserState(UserState.SELECT_ROLE);
         return List.of(
-                Helper.selectRole(userRepository.save(chatUser)));
+                HelperUtils.selectRole(userRepository.save(chatUser)));
     }
 
     @Override

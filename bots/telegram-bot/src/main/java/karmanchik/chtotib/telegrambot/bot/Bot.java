@@ -14,6 +14,9 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import java.io.Serializable;
 import java.util.List;
 
+/**
+ * Класс представления чат-бота.
+ */
 @Log4j2
 @Component
 @RequiredArgsConstructor
@@ -53,7 +56,7 @@ public class Bot extends TelegramLongPollingBot {
         try {
             execute((BotApiMethod<? extends Serializable>) response);
         } catch (TelegramApiException e) {
-            log.error(e.getMessage(), e);
+            log.error(e);
         }
     }
 }

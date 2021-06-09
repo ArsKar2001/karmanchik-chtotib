@@ -4,7 +4,7 @@ import karmanchik.chtotib.entityservice.entity.*;
 import karmanchik.chtotib.entityservice.enums.WeekType;
 import karmanchik.chtotib.entityservice.exception.*;
 import karmanchik.chtotib.entityservice.repositories.*;
-import karmanchik.chtotib.restservice.helper.LatinNumberHelper;
+import karmanchik.chtotib.restservice.utils.LatinNumberUtils;
 import karmanchik.chtotib.restservice.parser.ReplacementParser;
 import karmanchik.chtotib.restservice.parser.TimetableParser;
 import karmanchik.chtotib.restservice.parser.validate.ValidGroupName;
@@ -169,7 +169,7 @@ public class FileImportController {
                 String teachersName = ss[5];
                 String weekTypeStr = ss[6];
                 int day = Integer.parseInt(dayStr);
-                Integer pairNumber = LatinNumberHelper.get(pair);
+                Integer pairNumber = LatinNumberUtils.get(pair);
                 WeekType weekType = WeekType.valueOf(weekTypeStr);
 
                 List<String> teachersStr = teachersStrToList(teachersName);

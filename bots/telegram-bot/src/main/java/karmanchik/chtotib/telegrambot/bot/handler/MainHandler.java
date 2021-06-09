@@ -3,14 +3,16 @@ package karmanchik.chtotib.telegrambot.bot.handler;
 import karmanchik.chtotib.entityservice.entity.ChatUser;
 import karmanchik.chtotib.entityservice.exception.ResourceNotFoundException;
 import karmanchik.chtotib.telegrambot.bot.command.MainCommand;
-import karmanchik.chtotib.telegrambot.bot.helper.Helper;
-import karmanchik.chtotib.telegrambot.util.TelegramUtil;
+import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;
 
 import java.io.Serializable;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * Абстратный обработчик для основного функционала чат-бота
+ */
 public abstract class MainHandler implements Handler {
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) throws ResourceNotFoundException {
@@ -29,10 +31,15 @@ public abstract class MainHandler implements Handler {
             }
         }
         return List.of(
-                Helper.mainMessage(chatUser)
+                HelperUtils.mainMessage(chatUser)
         );
     }
 
+    /**
+     *
+     * @param chatUser
+     * @return
+     */
     protected abstract List<PartialBotApiMethod<? extends Serializable>> editProfile(ChatUser chatUser);
 
     protected abstract List<PartialBotApiMethod<? extends Serializable>> getTimetableOther(ChatUser chatUser);

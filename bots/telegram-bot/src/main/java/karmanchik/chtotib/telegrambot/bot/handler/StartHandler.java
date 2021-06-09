@@ -6,7 +6,7 @@ import karmanchik.chtotib.entityservice.enums.Role;
 import karmanchik.chtotib.entityservice.enums.UserState;
 import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.telegrambot.bot.Const;
-import karmanchik.chtotib.telegrambot.bot.helper.Helper;
+import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -18,6 +18,9 @@ import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Обработчик для новых пользователей чат-бота
+ */
 @Log4j2
 @Component
 @RequiredArgsConstructor
@@ -43,7 +46,7 @@ public class StartHandler implements Handler {
     private List<PartialBotApiMethod<? extends Serializable>> startMessage(ChatUser chatUser) {
         chatUser.setBotState(BotState.REG);
         chatUser.setUserState(UserState.SELECT_ROLE);
-        return List.of(Helper.selectRole(userRepository.save(chatUser)));
+        return List.of(HelperUtils.selectRole(userRepository.save(chatUser)));
     }
 
     private List<PartialBotApiMethod<? extends Serializable>> welcomeMessage(ChatUser chatUser) {
@@ -52,7 +55,7 @@ public class StartHandler implements Handler {
         log.info("Set chatUser({}): user_state - {}", chatUser.getId(), UserState.START);
 
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
-                .text(String.format("Привет %s!%nМеня зовут @%s :D%n" +
+                .text(String.format("Привет <b>%s</b>!%nМеня зовут @%s :D%n" +
                         "Я был создан для работы со студентами и педагогами ЧТОТиБ.%n" +
                         "Давай создадим твою анкету?!", chatUser.getUserName(), botUsername))
                 .replyMarkup(TelegramUtil.createReplyKeyboardMarkup()

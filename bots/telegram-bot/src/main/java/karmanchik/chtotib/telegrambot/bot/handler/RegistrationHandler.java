@@ -11,7 +11,7 @@ import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaGroupRepository;
 import karmanchik.chtotib.entityservice.repositories.JpaTeacherRepository;
 import karmanchik.chtotib.telegrambot.bot.Course;
-import karmanchik.chtotib.telegrambot.bot.helper.Helper;
+import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
@@ -26,6 +26,9 @@ import java.util.List;
 
 import static karmanchik.chtotib.telegrambot.bot.Const.*;
 
+/**
+ * Обработчик создания анкеты пользователя чат-бота
+ */
 @Log4j2
 @Component
 @RequiredArgsConstructor
@@ -34,7 +37,7 @@ public class RegistrationHandler implements Handler {
     private final JpaGroupRepository groupRepository;
     private final JpaTeacherRepository teacherRepository;
 
-    private final Helper helper;
+    private final HelperUtils helperUtils;
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) {
@@ -42,7 +45,7 @@ public class RegistrationHandler implements Handler {
             UserState state = chatUser.getUserState();
             switch (state) {
                 case SELECT_COURSE:
-                    return helper.selectGroup(chatUser, message);
+                    return helperUtils.selectGroup(chatUser, message);
                 case SELECT_GROUP:
                     return selectGroupOrAccept(chatUser, message);
                 case SELECT_ROLE:
@@ -64,12 +67,18 @@ public class RegistrationHandler implements Handler {
         }
     }
 
+    /**
+     * Метод для обработки роли, выбранной пользователем
+     * @param chatUser Пользователь
+     * @param message Сообщение пользователя
+     * @return Список ответных сообщений чат-бота
+     */
     private List<PartialBotApiMethod<? extends Serializable>> switchRole(ChatUser chatUser, String message) {
         if (message.equalsIgnoreCase(ROLE_STUDENT)) {
             chatUser.setUserState(UserState.SELECT_COURSE);
             chatUser.setRole(Role.STUDENT);
             ChatUser save = userRepository.save(chatUser);
-            return Helper.createSelectCourseButtonPanel(save);
+            return HelperUtils.createSelectCourseButtonPanel(save);
         } else if (message.equalsIgnoreCase(ROLE_TEACHER)) {
             chatUser.setRole(Role.TEACHER);
             return inputTeacherName(chatUser);
@@ -77,16 +86,27 @@ public class RegistrationHandler implements Handler {
         return Collections.emptyList();
     }
 
+    /**
+     *
+     * @param chatUser Пользователь
+     * @return Список ответных сообщений чат-бота
+     */
     private List<PartialBotApiMethod<? extends Serializable>> inputTeacherName(ChatUser chatUser) {
         chatUser.setUserState(UserState.INPUT_TEXT);
-        return List.of(Helper.inputMessage(userRepository.save(chatUser),
+        return List.of(HelperUtils.inputMessage(userRepository.save(chatUser),
                 "Введите фамилию..."));
     }
 
+    /**
+     * @param chatUser Пользователь
+     * @param message Сообщение пользователя
+     * @return Список ответных сообщений чат-бота
+     * @throws ResourceNotFoundException Ошибка, если выбранная группа не найдена в БД
+     */
     private List<PartialBotApiMethod<? extends Serializable>> selectGroupOrAccept(ChatUser chatUser, String message) throws ResourceNotFoundException {
         if (Course.isCourse(message)) {
-            return helper.selectGroup(chatUser, message);
-        } else if (Helper.isNumeric(message)) {
+            return helperUtils.selectGroup(chatUser, message);
+        } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
             log.info("Find group by id: {} ...", id);
             chatUser.setGroup(groupRepository.findById(id)
@@ -98,10 +118,16 @@ public class RegistrationHandler implements Handler {
         return Collections.emptyList();
     }
 
+    /**
+     * @param chatUser Пользователь
+     * @param message Сообщение пользователя
+     * @return Список ответных сообщений чат-бота
+     * @throws ResourceNotFoundException Ошибка, если выбранный педагог не найдена в БД
+     */
     private List<PartialBotApiMethod<? extends Serializable>> selectTeacherOrAccept(ChatUser chatUser, String message) throws ResourceNotFoundException {
         if (message.equalsIgnoreCase(CANCEL)) {
             return inputTeacherName(chatUser);
-        } else if (Helper.isNumeric(message)) {
+        } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
             chatUser.setTeacher(teacherRepository.findById(id)
                     .orElseThrow(() -> new ResourceNotFoundException(id, Teacher.class)));
@@ -116,9 +142,8 @@ public class RegistrationHandler implements Handler {
         List<Teacher> teacherNames = teacherRepository.findAllByName(message.toLowerCase());
         if (!teacherNames.isEmpty()) {
             chatUser.setUserState(UserState.SELECT_TEACHER);
-            ChatUser save = userRepository.save(chatUser);
 
-            return sendMessageItIsYou(save,
+            return sendMessageItIsYou(userRepository.save(chatUser),
                     InlineKeyboardMarkup.builder()
                             .keyboard(TelegramUtil.createInlineKeyboardButtons(teacherNames, 2))
                             .build(),
@@ -141,7 +166,7 @@ public class RegistrationHandler implements Handler {
                         .replyMarkup(markup1)
                         .build(),
                 TelegramUtil.createMessageTemplate(chatUser)
-                        .text("...?")
+                        .text("...")
                         .replyMarkup(markup2)
                         .build());
     }
@@ -159,15 +184,13 @@ public class RegistrationHandler implements Handler {
     private PartialBotApiMethod<? extends Serializable> accept(ChatUser chatUser) {
         chatUser.setUserState(UserState.NONE);
         chatUser.setBotState(BotState.AUTHORIZED);
-        ChatUser save = userRepository.save(chatUser);
-        return Helper.mainMessage(save);
+        return HelperUtils.mainMessage(userRepository.save(chatUser));
     }
 
     private PartialBotApiMethod<? extends Serializable> cancel(ChatUser chatUser) {
         chatUser.setUserState(UserState.SELECT_ROLE);
         chatUser.setBotState(BotState.REG);
-        final ChatUser saveChatUser = userRepository.save(chatUser);
-        return Helper.selectRole(saveChatUser);
+        return HelperUtils.selectRole(userRepository.save(chatUser));
     }
 
     @Override
@@ -178,8 +201,8 @@ public class RegistrationHandler implements Handler {
     @Override
     public List<Role> operatedUserRoles() {
         return List.of(
-                Role.STUDENT,
                 Role.NONE,
+                Role.STUDENT,
                 Role.TEACHER
         );
     }

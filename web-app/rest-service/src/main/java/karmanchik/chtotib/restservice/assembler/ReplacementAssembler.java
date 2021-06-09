@@ -1,7 +1,7 @@
 package karmanchik.chtotib.restservice.assembler;
 
 import karmanchik.chtotib.entityservice.entity.Replacement;
-import karmanchik.chtotib.restservice.assembler.helper.ModelHelper;
+import karmanchik.chtotib.restservice.utils.ModelHelperUtils;
 import karmanchik.chtotib.restservice.assembler.model.ReplacementModel;
 import karmanchik.chtotib.restservice.rest.ReplacementController;
 import org.springframework.hateoas.CollectionModel;
@@ -25,8 +25,8 @@ public class ReplacementAssembler extends RepresentationModelAssemblerSupport<Re
                 .add(linkTo(methodOn(ReplacementController.class).getAll())
                         .withRel("replacements"));
         replacementModel.setId(entity.getId());
-        replacementModel.setGroup(ModelHelper.toGroupModel(entity.getGroup()));
-        replacementModel.setTeachers(ModelHelper.toTeachersModel(entity.getTeachers()));
+        replacementModel.setGroup(ModelHelperUtils.toGroupModel(entity.getGroup()));
+        replacementModel.setTeachers(ModelHelperUtils.toTeachersModel(entity.getTeachers()));
         replacementModel.setDate(entity.getDate());
         replacementModel.setDiscipline(entity.getDiscipline());
         replacementModel.setAuditorium(entity.getAuditorium());

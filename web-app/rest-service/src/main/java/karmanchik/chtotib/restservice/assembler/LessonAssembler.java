@@ -1,7 +1,7 @@
 package karmanchik.chtotib.restservice.assembler;
 
 import karmanchik.chtotib.entityservice.entity.Lesson;
-import karmanchik.chtotib.restservice.assembler.helper.ModelHelper;
+import karmanchik.chtotib.restservice.utils.ModelHelperUtils;
 import karmanchik.chtotib.restservice.assembler.model.LessonModel;
 import karmanchik.chtotib.restservice.rest.LessonController;
 import org.springframework.hateoas.CollectionModel;
@@ -28,8 +28,8 @@ public class LessonAssembler extends RepresentationModelAssemblerSupport<Lesson,
                         .withRel("lessons_by_day"));
         lessonModel.setId(entity.getId());
         lessonModel.setDay(entity.getDay());
-        lessonModel.setGroup(ModelHelper.toGroupModel(entity.getGroup()));
-        lessonModel.setTeachers(ModelHelper.toTeachersModel(entity.getTeachers()));
+        lessonModel.setGroup(ModelHelperUtils.toGroupModel(entity.getGroup()));
+        lessonModel.setTeachers(ModelHelperUtils.toTeachersModel(entity.getTeachers()));
         lessonModel.setDiscipline(entity.getDiscipline());
         lessonModel.setAuditorium(entity.getAuditorium());
         lessonModel.setPairNumber(entity.getPairNumber());

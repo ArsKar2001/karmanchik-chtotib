@@ -1,7 +1,7 @@
 package karmanchik.chtotib.restservice.parser;
 
 import karmanchik.chtotib.restservice.parser.sequence.Sequence;
-import karmanchik.chtotib.restservice.parser.word.Word;
+import karmanchik.chtotib.restservice.utils.WordUtils;
 import lombok.extern.log4j.Log4j2;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
 
@@ -19,7 +19,7 @@ public class ReplacementParser extends BaseParser {
 
     @Override
     public List<List<String>> parse(byte[] bytes) throws IOException, InvalidFormatException {
-        return Word.toTablesRowsLists(bytes).stream()
+        return WordUtils.toTablesRowsLists(bytes).stream()
                 .map(table -> table.stream()
                         .map(row -> Arrays.toString(row.toArray()))
                         .collect(Collectors.toList()))
@@ -28,7 +28,7 @@ public class ReplacementParser extends BaseParser {
 
     @Override
     public List<List<Map<String, Object>>> parseToListMap(byte[] bytes) throws IOException, InvalidFormatException {
-        return Word.toTablesRowsLists(bytes).stream()
+        return WordUtils.toTablesRowsLists(bytes).stream()
                 .map(table -> table.stream()
                         .skip(1)
                         .filter(row -> row.size() >= Sequence.MAX_COLUMN_SIZE)
