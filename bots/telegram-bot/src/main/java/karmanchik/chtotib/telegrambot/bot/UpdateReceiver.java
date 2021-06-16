@@ -67,6 +67,11 @@ public class UpdateReceiver {
         }
     }
 
+    /**
+     * Определяет обработчик для пользователя по его {@link Role}, {@link UserState} и {@link BotState}
+     * @param chatUser Пользователь чата
+     * @return Обработчик
+     */
     private Handler getHandlerByUser(ChatUser chatUser) {
         return handlers.stream()
                 .filter(handler -> handler.operatedBotState() == chatUser.getBotState())
@@ -78,6 +83,11 @@ public class UpdateReceiver {
                 .orElseThrow(UnsupportedOperationException::new);
     }
 
+    /**
+     * Проверяет, является ли входящее сообщение пользователя текстовым
+     * @param update
+     * @return
+     */
     private boolean isMessageWithText(Update update) {
         return !update.hasCallbackQuery() && update.hasMessage() && update.getMessage().hasText();
     }

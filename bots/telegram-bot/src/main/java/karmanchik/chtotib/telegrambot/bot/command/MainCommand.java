@@ -8,9 +8,13 @@ import java.util.stream.Collectors;
  * Класс-перечисление для основных команд чат-бота.
  */
 public enum MainCommand {
+    // Расписание на следующий день
     COMMAND_1(1),
+    // Расписание на эту неделю
     COMMAND_2(2),
+    // Узнать расписание педагога/группы
     COMMAND_3(3),
+    // Изменить анкету
     COMMAND_4(4);
 
     private final int val;
@@ -41,11 +45,9 @@ public enum MainCommand {
      * @return
      */
     public static MainCommand get(Object o) {
-        for (MainCommand command : values()) {
-            if (command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o))
-                return command;
-        }
-        return null;
+        return Arrays.stream(values())
+                .filter(command -> command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o))
+                .findFirst().orElse(null);
     }
 
     /**
@@ -54,11 +56,7 @@ public enum MainCommand {
      * @return Вернет true, если входной объект соответстует елементу MainCommand, иначе - false
      */
     public static boolean isCommand(Object o) {
-        for (MainCommand command : values()) {
-            if (command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o))
-                return true;
-        }
-        return false;
+        return Arrays.stream(values()).anyMatch(command -> command.equals(o) || command.name().equals(o) || command.getVal().equals(o) || command.getVal().toString().equals(o));
     }
 
     public Integer getVal() {

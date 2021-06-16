@@ -30,6 +30,9 @@ import java.util.List;
 
 import static karmanchik.chtotib.telegrambot.bot.Const.MESSAGE_SPLIT;
 
+/**
+ * Обработчик команд от пользователей - педагогов.
+ */
 @Log4j2
 @Component
 @RequiredArgsConstructor

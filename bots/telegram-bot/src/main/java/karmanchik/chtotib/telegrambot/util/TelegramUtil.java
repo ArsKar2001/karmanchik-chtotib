@@ -13,6 +13,9 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Util-класс статических фабрик, для создания елементов интерфейса Telegram Bot API
+ */
 public class TelegramUtil {
     public static SendMessageBuilder createMessageTemplate(ChatUser chatUser) {
         return SendMessage.builder()

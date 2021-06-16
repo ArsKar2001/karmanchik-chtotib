@@ -6,6 +6,10 @@ import org.springframework.http.ResponseEntity;
 
 import java.util.List;
 
+/**
+ * Общий интерфейс для контроллеров веб-приложения
+ * @param <T> Сущность базы данных
+ */
 public interface Controller<T extends BaseEntity> {
     /**
      * Возвращает один элемент из таблицы БД

@@ -5,6 +5,9 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Проверяет корректность названия групп
+ */
 public class ValidGroupName {
     private static final Pattern GROUP_NAME =
             Pattern.compile("[А-Яа-я]+(\\s?+-\\s?+|\\s?+)\\d{2}(\\s?+-\\s?+)\\d([а-я]?|)");

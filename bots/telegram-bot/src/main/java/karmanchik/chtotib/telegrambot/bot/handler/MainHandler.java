@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- * Абстратный обработчик для основного функционала чат-бота
+ * Абстрактный общий обработчик для педагогов и студентов
  */
 public abstract class MainHandler implements Handler {
     @Override
@@ -35,11 +35,6 @@ public abstract class MainHandler implements Handler {
         );
     }
 
-    /**
-     *
-     * @param chatUser
-     * @return
-     */
     protected abstract List<PartialBotApiMethod<? extends Serializable>> editProfile(ChatUser chatUser);
 
     protected abstract List<PartialBotApiMethod<? extends Serializable>> getTimetableOther(ChatUser chatUser);

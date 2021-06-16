@@ -15,6 +15,9 @@ import java.util.stream.Collectors;
 
 import static karmanchik.chtotib.restservice.parser.sequence.Sequence.*;
 
+/**
+ * Парсер для файлов расписания
+ */
 @Log4j2
 public class TimetableParser extends BaseParser {
     public static final List<String> ERROR_LIST = new ArrayList<>();

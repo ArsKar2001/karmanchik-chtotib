@@ -31,6 +31,10 @@ public class Bot extends TelegramLongPollingBot {
 
     private final UpdateReceiver updateReceiver;
 
+    /**
+     * Слушатель новых сообщений боту от пользователей.
+     * @param update
+     */
     @Override
     public void onUpdateReceived(Update update) {
         log.info("Получили новый update: {}", update.toString());
@@ -38,17 +42,6 @@ public class Bot extends TelegramLongPollingBot {
         if (messagesToSend != null && !messagesToSend.isEmpty()) {
             messagesToSend.forEach(this::executeWithExceptionCheck);
         }
-    }
-
-    @Override
-    public void onUpdatesReceived(List<Update> updates) {
-        updates.parallelStream().forEach(update -> {
-            log.info("Получили новый update: {}", update.toString());
-            List<PartialBotApiMethod<? extends Serializable>> messagesToSend = updateReceiver.handle(update);
-            if (messagesToSend != null && !messagesToSend.isEmpty()) {
-                messagesToSend.forEach(this::executeWithExceptionCheck);
-            }
-        });
     }
 
     private void executeWithExceptionCheck(Object response) {

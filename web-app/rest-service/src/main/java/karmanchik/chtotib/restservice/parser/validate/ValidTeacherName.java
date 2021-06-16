@@ -3,6 +3,9 @@ package karmanchik.chtotib.restservice.parser.validate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ *  Util-класс, проверяющий на корректность имя педагога
+ */
 public class ValidTeacherName {
     private static final Pattern PATTERN = Pattern.compile("[А-Я][а-я]+\\s[А-Я][а-я]?+\\.[А-Я][а-я]?+\\.");
 

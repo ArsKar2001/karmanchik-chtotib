@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 /**
- *
+ * Utils-класс, со статическими фабриками, для обработки документов Microsoft Word (.docx)
  */
 @Log4j2
 public class WordUtils {

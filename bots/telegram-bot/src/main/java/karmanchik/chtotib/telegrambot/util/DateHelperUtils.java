@@ -8,7 +8,7 @@ import java.time.temporal.WeekFields;
 import java.util.Locale;
 
 /**
- * Класс статических фабрик для
+ * Utils-класс статических фабрик для обработки академических дат.
  */
 public class DateHelperUtils {
     private DateHelperUtils() {

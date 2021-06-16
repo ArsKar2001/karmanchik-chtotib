@@ -57,7 +57,7 @@ public class FileImportController {
         try {
             ReplacementParser parser = new ReplacementParser();
             String filename = mFile.getOriginalFilename();
-            LocalDate date = parser.getDateFromFileName(filename);
+            LocalDate date = parser.getDateFromFileName(Objects.requireNonNull(filename));
 
             if (date == null)
                 return ResponseEntity.badRequest()
@@ -68,21 +68,20 @@ public class FileImportController {
             parser.parseToListMap(mFile.getBytes()).stream()
                     .flatMap(Collection::stream)
                     .forEach(map -> {
-                        Group group = new Group();
                         String groupName = (String) map.get("group_name");
                         String pair = (String) map.get("pair");
                         String discipline = (String) map.get("discipline");
                         String auditorium = (String) map.get("auditorium");
                         List<String> teacherNameList = ((List<String>) map.get("teachers"));
-                        if (ValidGroupName.isGroupName(groupName)) {
-                            String validGroupName = ValidGroupName.getValidGroupName(groupName);
-                            group = groups.stream()
-                                    .filter(g -> g.getName().equalsIgnoreCase(validGroupName))
-                                    .findFirst()
-                                    .orElseThrow(() -> new ResourceNotFoundException(groupName, Group.class));
-                        } else {
-                            EXCEPTION_LIST.add(new StringReadException(groupName, "ИСиП-17-1").getMessage());
-                        }
+                        String validGroupName = ValidGroupName.getValidGroupName(groupName);
+                        Group group = groups.stream()
+                                .filter(g -> g.getName().equalsIgnoreCase(validGroupName))
+                                .findFirst()
+                                .orElseGet(() -> {
+                                    EXCEPTION_LIST.add(new ResourceNotFoundException(groupName, Group.class)
+                                            .getMessage());
+                                    return new Group();
+                                });
                         List<Teacher> teachersByRepl = new ArrayList<>();
                         for (String s : teacherNameList) {
                             if (!s.trim().isBlank()) {
@@ -92,7 +91,7 @@ public class FileImportController {
                                             .findFirst()
                                             .orElseThrow(() -> new ResourceNotFoundException(s, Teacher.class)));
                                 } else {
-                                    EXCEPTION_LIST.add(new StringReadException(s, "Иванов И.И.").getMessage());
+                                    EXCEPTION_LIST.add(new StringReadException(s, "Иванов А.А.").getMessage());
                                 }
                             }
                         }
@@ -107,23 +106,23 @@ public class FileImportController {
                     });
             if (EXCEPTION_LIST.isEmpty()) {
                 replacementRepository.deleteAll();
-                log.info("Save replacements [{}]: {}", replacements.size(), replacements);
+                log.info("Save replacements {}: {}", replacements.size(), replacements);
                 replacementRepository.saveAll(replacements);
                 return ResponseEntity.ok()
-                        .body("OK");
-            }
-            else {
-                log.warn("Error import: {}", EXCEPTION_LIST);
+                        .body(Map.of(
+                                "status", "OK",
+                                "body", replacements
+                        ));
+            } else {
                 return ResponseEntity.ok()
                         .body(Map.of(
                                 "status", "FAIL",
-                                "trace", EXCEPTION_LIST
+                                "body", EXCEPTION_LIST
                         ));
             }
         } catch (Exception e) {
             log.error(e.getMessage(), e);
-            return ResponseEntity.ok()
-                    .body(e.getMessage());
+            return ResponseEntity.ok().body(e.getMessage());
         }
     }
 
@@ -196,21 +195,21 @@ public class FileImportController {
             if (EXCEPTION_LIST.isEmpty()) {
                 deleteLessons();
 
-                log.info("Importing lessons {}: {}", lessons.size(), lessons);
-                lessonsRepository.saveAll(lessons);
+                log.info("Importing lessons...");
+                List<Lesson> saveLessons = lessonsRepository.saveAll(lessons);
                 log.info("Importing lessons... OK");
+
+                return ResponseEntity.ok(Map.of(
+                        "status", "OK",
+                        "body", saveLessons
+                ));
             } else {
                 return ResponseEntity.ok()
                         .body(Map.of(
-                                "status", "fail",
-                                "trace", EXCEPTION_LIST
+                                "status", "FAIL",
+                                "body", EXCEPTION_LIST
                         ));
             }
-            return ResponseEntity.ok(Map.of(
-                    "groups", groups.size(),
-                    "teachers", allTeachers.size(),
-                    "lessons", lessons.size()
-            ));
         } catch (RuntimeException | IOException | InvalidFormatException e) {
             log.error(e.getMessage(), e);
             return ResponseEntity.ok().body(e.getMessage());

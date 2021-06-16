@@ -17,18 +17,8 @@ public enum Course {
     }
 
     public static boolean isCourse(Object o) {
-        for (Course course : values()) {
-            if (course.equals(o)) {
-                return true;
-            }
-            if (course.name().equals(o)) {
-                return true;
-            }
-            if (o.getClass().isMemberClass() && course.value == (Integer) o) {
-                return true;
-            }
-        }
-        return false;
+        return Arrays.stream(values())
+                .anyMatch(course -> course.equals(o) || course.name().equals(o) || ((Integer) course.getValue()).equals(o));
     }
 
     public static List<String> names() {
