@@ -7,13 +7,13 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="entity-service" />
+        <module name="chtotib-models" />
         <module name="rest-service" />
         <module name="telegram-bot" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel target="11">
-      <module name="entity-service" target="11" />
+      <module name="chtotib-models" target="11" />
       <module name="karmanchik-chtotib" target="11" />
       <module name="rest-service" target="11" />
       <module name="telegram-bot" target="11" />
@@ -21,7 +21,7 @@
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
-      <module name="entity-service" options="-parameters" />
+      <module name="chtotib-models" options="-parameters" />
       <module name="rest-service" options="-parameters" />
       <module name="telegram-bot" options="-parameters" />
     </option>

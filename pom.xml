@@ -8,9 +8,9 @@
     <name>karmanchik-chtotib</name>
 
     <modules>
-        <module>entity-service</module>
+        <module>chtotib-models</module>
         <module>bots/telegram-bot</module>
-        <module>web-app/rest-service</module>
+        <module>chtotib-web-app/rest-service</module>
     </modules>
 
     <properties>

@@ -16,7 +16,7 @@
     <dependencies>
         <dependency>
             <groupId>karmanchik.chtotib</groupId>
-            <artifactId>entity-service</artifactId>
+            <artifactId>chtotib-models</artifactId>
             <version>1.0-SNAPSHOT</version>
         </dependency>
         <dependency>

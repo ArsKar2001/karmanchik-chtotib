@@ -6,7 +6,7 @@
     </list>
   </component>
   <component name="FrameworkDetectionExcludesConfiguration">
-    <file type="web" url="file://$PROJECT_DIR$/web-app/rest-service" />
+    <file type="web" url="file://$PROJECT_DIR$/chtotib-web-app/rest-service" />
   </component>
   <component name="MavenProjectsManager">
     <option name="originalFiles">

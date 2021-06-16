@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="rest-service:war exploded">
-    <output-path>$PROJECT_DIR$/web-app/rest-service/target/chtotib-web-app</output-path>
+    <output-path>$PROJECT_DIR$/chtotib-web-app/rest-service/target/chtotib-web-app</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
@@ -14,8 +14,8 @@
           <element id="module-output" name="rest-service" />
         </element>
         <element id="directory" name="lib">
-          <element id="archive" name="entity-service-1.0-SNAPSHOT.jar">
-            <element id="module-output" name="entity-service" />
+          <element id="archive" name="chtotib-models-1.0-SNAPSHOT.jar">
+            <element id="module-output" name="chtotib-models" />
           </element>
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter-web:2.4.5" />
           <element id="library" level="project" name="Maven: org.springframework.boot:spring-boot-starter:2.4.5" />
@@ -101,7 +101,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/web-app/rest-service/target/chtotib-web-app/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/chtotib-web-app/rest-service/target/chtotib-web-app/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="rest-service/web/Web" />
     </root>
