@@ -5,7 +5,8 @@
       <paths name="chtotib.ru">
         <serverdata>
           <mappings>
-            <mapping deploy="/" local="$PROJECT_DIR$" web="" />
+            <mapping local="$PROJECT_DIR$/chtotib-web-app/frontend" web="/" />
+            <mapping local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
