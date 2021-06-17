@@ -1,6 +1,6 @@
 # Project exclude paths
 ./bots/telegram-bot/target/
-./entity-service/target/
+./chtotib-models/target/
 ./bots/telegram-bot/logs/
 chtotib-web-app/rest-service/target/
 chtotib-web-app/rest-service/logs/
