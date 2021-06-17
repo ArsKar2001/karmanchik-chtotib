@@ -4,6 +4,8 @@ import karmanchik.chtotib.models.entity.*;
 import karmanchik.chtotib.models.enums.WeekType;
 import karmanchik.chtotib.models.exception.*;
 import karmanchik.chtotib.models.repositories.*;
+import karmanchik.chtotib.webapp.assembler.LessonAssembler;
+import karmanchik.chtotib.webapp.assembler.ReplacementAssembler;
 import karmanchik.chtotib.webapp.utils.LatinNumberUtils;
 import karmanchik.chtotib.webapp.parser.ReplacementParser;
 import karmanchik.chtotib.webapp.parser.TimetableParser;
@@ -39,6 +41,9 @@ public class FileImportController {
     private final JpaGroupRepository groupRepository;
     private final JpaTeacherRepository teacherRepository;
     private final JpaReplacementRepository replacementRepository;
+
+    private final LessonAssembler lessonAssembler;
+    private final ReplacementAssembler replacementAssembler;
 
     @PostMapping("/import/replacements")
     public ResponseEntity<?> importReplacements(@RequestBody MultipartFile mFile) {
@@ -108,11 +113,30 @@ public class FileImportController {
             if (EXCEPTION_LIST.isEmpty()) {
                 replacementRepository.deleteAll();
                 log.info("Save replacements {}: {}", replacements.size(), replacements);
-                replacementRepository.saveAll(replacements);
+                var models = replacementRepository.saveAll(replacements).stream()
+                        .map(replacementAssembler::toModel)
+                        .map(lm -> {
+                            var ref = new Object() {
+                                int num = 0;
+                            };
+                            return Map.of(
+                                    "id", lm.getId(),
+                                    "pairNumber", lm.getPairNumber(),
+                                    "date", lm.getDate(),
+                                    "discipline", lm.getDiscipline(),
+                                    "auditorium", lm.getAuditorium(),
+                                    "group", lm.getGroup(),
+                                    "teachers", lm.getTeachers().stream()
+                                            .map(tm -> Map.of(
+                                                    "id", tm.getId(),
+                                                    "name", tm.getName(),
+                                                    "num", ++ref.num
+                                            )).collect(Collectors.toList()));
+                        }).collect(Collectors.toList());
                 return ResponseEntity.ok()
                         .body(Map.of(
                                 "status", "OK",
-                                "body", replacements
+                                "body", models
                         ));
             } else {
                 return ResponseEntity.ok()
@@ -130,7 +154,6 @@ public class FileImportController {
     @PostMapping("/import/lessons")
     public ResponseEntity<?> importLessons(@RequestBody MultipartFile[] mFiles) {
         EXCEPTION_LIST.clear();
-        log.info("Importing files: {}", mFiles);
         try {
             if (mFiles.length > 2) return ResponseEntity.badRequest().body("Файлов должно быть не больше 2.");
 
@@ -198,12 +221,32 @@ public class FileImportController {
                 deleteLessons();
 
                 log.info("Importing lessons...");
-                List<Lesson> saveLessons = lessonsRepository.saveAll(lessons);
+                var models = lessonsRepository.saveAll(lessons).stream()
+                        .map(lessonAssembler::toModel)
+                        .map(lm -> {
+                            var ref = new Object() {
+                                int num = 0;
+                            };
+                            return Map.of(
+                                    "id", lm.getId(),
+                                    "pairNumber", lm.getPairNumber(),
+                                    "day", lm.getDay(),
+                                    "discipline", lm.getDiscipline(),
+                                    "auditorium", lm.getAuditorium(),
+                                    "weekType", lm.getWeekType(),
+                                    "group", lm.getGroup(),
+                                    "teachers", lm.getTeachers().stream()
+                                            .map(tm -> Map.of(
+                                                    "id", tm.getId(),
+                                                    "name", tm.getName(),
+                                                    "num", ++ref.num
+                                            )).collect(Collectors.toList()));
+                        }).collect(Collectors.toList());
                 log.info("Importing lessons... OK");
 
                 return ResponseEntity.ok(Map.of(
                         "status", "OK",
-                        "body", saveLessons
+                        "body", models
                 ));
             } else {
                 return ResponseEntity.ok()
