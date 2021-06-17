@@ -19,7 +19,7 @@ public class Teacher extends BaseEntity implements BaseModel {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "teacher", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "teacher", fetch = FetchType.EAGER)
     private List<ChatUser> chatUsers;
 
     @ManyToMany(mappedBy = "teachers", cascade = CascadeType.ALL)

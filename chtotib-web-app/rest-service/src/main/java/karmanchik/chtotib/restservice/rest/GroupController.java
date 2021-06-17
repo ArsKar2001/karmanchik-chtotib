@@ -12,6 +12,7 @@ import karmanchik.chtotib.restservice.assembler.model.GroupModel;
 import karmanchik.chtotib.restservice.parser.validate.ValidGroupName;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.data.domain.Sort;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.hateoas.IanaLinkRelations;
 import org.springframework.http.ResponseEntity;
@@ -122,7 +123,7 @@ public class GroupController implements Controller<Group> {
     @Override
     @GetMapping("/groups/")
     public ResponseEntity<?> getAll() {
-        List<Group> groups = groupRepository.findAll();
+        List<Group> groups = groupRepository.findAll(Sort.by("name"));
         CollectionModel<GroupModel> models = assembler.toCollectionModel(groups);
         return ResponseEntity.ok()
                 .body(models);
