@@ -1,10 +1,10 @@
 <component name="ArtifactManager">
-  <artifact type="exploded-war" name="rest-service:war exploded">
-    <output-path>$PROJECT_DIR$/chtotib-web-app/rest-service/target/chtotib-web-app</output-path>
+  <artifact type="exploded-war" name="chtotib-web-app:war exploded">
+    <output-path>$PROJECT_DIR$/chtotib-web-app/target/chtotib-web-app</output-path>
     <properties id="maven-jee-properties">
       <options>
         <exploded>true</exploded>
-        <module>rest-service</module>
+        <module>chtotib-web-app</module>
         <packaging>war</packaging>
       </options>
     </properties>

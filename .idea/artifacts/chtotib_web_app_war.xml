@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="chtotib-web-app:war">
+    <output-path>$PROJECT_DIR$/chtotib-web-app/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>chtotib-web-app</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="chtotib-web-app.war">
+      <element id="artifact" artifact-name="chtotib-web-app:war exploded" />
+    </root>
+  </artifact>
+</component>

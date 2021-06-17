@@ -3,6 +3,6 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/bots/telegram-bot/src/main/java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/chtotib-models/src/main/java" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/chtotib-web-app/rest-service/src/main/java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/chtotib-web-app/src/main/java" charset="UTF-8" />
   </component>
 </project>

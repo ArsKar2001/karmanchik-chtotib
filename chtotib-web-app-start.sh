@@ -6,6 +6,6 @@ echo "$COUNT_GREP"
 if [ "$COUNT_GREP" -ne 2 ]
 then
 	cd /home/project/karmanchik-chtotib/ || exit
-	java -jar chtotib-web-app/rest-service/target/chtotib-web-app.war &
+	java -jar chtotib-web-app/target/chtotib-web-app.war &
 	echo 2
 fi

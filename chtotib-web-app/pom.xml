@@ -6,11 +6,11 @@
         <artifactId>karmanchik-chtotib</artifactId>
         <groupId>karmanchik.chtotib</groupId>
         <version>1.0-SNAPSHOT</version>
-        <relativePath>../../pom.xml</relativePath>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>rest-service</artifactId>
+    <artifactId>chtotib-web-app</artifactId>
     <packaging>war</packaging>
 
     <properties>

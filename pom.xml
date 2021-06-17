@@ -10,7 +10,7 @@
     <modules>
         <module>chtotib-models</module>
         <module>bots/telegram-bot</module>
-        <module>chtotib-web-app/rest-service</module>
+        <module>chtotib-web-app</module>
     </modules>
 
     <properties>
