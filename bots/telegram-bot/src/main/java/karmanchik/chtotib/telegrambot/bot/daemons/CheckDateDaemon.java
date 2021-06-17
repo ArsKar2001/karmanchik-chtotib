@@ -1,8 +1,8 @@
 package karmanchik.chtotib.telegrambot.bot.daemons;
 
-import karmanchik.chtotib.entityservice.entity.ChatUser;
-import karmanchik.chtotib.entityservice.enums.BotState;
-import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
+import karmanchik.chtotib.models.entity.ChatUser;
+import karmanchik.chtotib.models.enums.BotState;
+import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.telegrambot.bot.Bot;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;

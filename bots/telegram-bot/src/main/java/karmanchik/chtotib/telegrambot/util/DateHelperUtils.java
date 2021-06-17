@@ -1,6 +1,6 @@
 package karmanchik.chtotib.telegrambot.util;
 
-import karmanchik.chtotib.entityservice.enums.WeekType;
+import karmanchik.chtotib.models.enums.WeekType;
 import karmanchik.chtotib.telegrambot.bot.Course;
 
 import java.time.*;

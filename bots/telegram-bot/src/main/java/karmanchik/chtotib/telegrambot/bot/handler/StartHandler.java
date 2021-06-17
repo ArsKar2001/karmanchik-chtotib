@@ -1,10 +1,10 @@
 package karmanchik.chtotib.telegrambot.bot.handler;
 
-import karmanchik.chtotib.entityservice.entity.ChatUser;
-import karmanchik.chtotib.entityservice.enums.BotState;
-import karmanchik.chtotib.entityservice.enums.Role;
-import karmanchik.chtotib.entityservice.enums.UserState;
-import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
+import karmanchik.chtotib.models.entity.ChatUser;
+import karmanchik.chtotib.models.enums.BotState;
+import karmanchik.chtotib.models.enums.Role;
+import karmanchik.chtotib.models.enums.UserState;
+import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.telegrambot.bot.Const;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;

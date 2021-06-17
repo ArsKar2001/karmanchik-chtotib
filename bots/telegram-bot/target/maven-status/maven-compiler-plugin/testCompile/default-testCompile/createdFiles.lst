@@ -1,2 +1,6 @@
+karmanchik\chtotib\telegrambot\bot\helper\DateHelperUtilsUtilsTest.class
+karmanchik\chtotib\telegrambot\converter\TextToImageConverterTest.class
 karmanchik\chtotib\telegrambot\bot\command\MainCommandTest.class
-karmanchik\chtotib\telegrambot\bot\helper\DateHelperTest.class
+karmanchik\chtotib\telegrambot\bot\CourseTest.class
+karmanchik\chtotib\telegrambot\util\DateHelperUtilsTest.class
+karmanchik\chtotib\telegrambot\bot\handler\StartHandlerTest.class

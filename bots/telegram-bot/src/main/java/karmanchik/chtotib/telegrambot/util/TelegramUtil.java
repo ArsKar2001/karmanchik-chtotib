@@ -1,7 +1,7 @@
 package karmanchik.chtotib.telegrambot.util;
 
-import karmanchik.chtotib.entityservice.entity.ChatUser;
-import karmanchik.chtotib.entityservice.models.BaseModel;
+import karmanchik.chtotib.models.entity.ChatUser;
+import karmanchik.chtotib.models.models.BaseModel;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage.SendMessageBuilder;

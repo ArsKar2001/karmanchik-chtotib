@@ -1,7 +1,7 @@
 package karmanchik.chtotib.telegrambot.bot.handler;
 
-import karmanchik.chtotib.entityservice.entity.ChatUser;
-import karmanchik.chtotib.entityservice.exception.ResourceNotFoundException;
+import karmanchik.chtotib.models.entity.ChatUser;
+import karmanchik.chtotib.models.exception.ResourceNotFoundException;
 import karmanchik.chtotib.telegrambot.bot.command.MainCommand;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import org.telegram.telegrambots.meta.api.methods.PartialBotApiMethod;

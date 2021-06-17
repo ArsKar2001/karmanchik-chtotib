@@ -1,16 +1,16 @@
 package karmanchik.chtotib.telegrambot.bot.handler;
 
-import karmanchik.chtotib.entityservice.entity.ChatUser;
-import karmanchik.chtotib.entityservice.entity.Group;
-import karmanchik.chtotib.entityservice.entity.Lesson;
-import karmanchik.chtotib.entityservice.enums.BotState;
-import karmanchik.chtotib.entityservice.enums.Role;
-import karmanchik.chtotib.entityservice.enums.UserState;
-import karmanchik.chtotib.entityservice.enums.WeekType;
-import karmanchik.chtotib.entityservice.exception.ResourceNotFoundException;
-import karmanchik.chtotib.entityservice.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.entityservice.repositories.JpaGroupRepository;
-import karmanchik.chtotib.entityservice.repositories.JpaLessonsRepository;
+import karmanchik.chtotib.models.entity.ChatUser;
+import karmanchik.chtotib.models.entity.Group;
+import karmanchik.chtotib.models.entity.Lesson;
+import karmanchik.chtotib.models.enums.BotState;
+import karmanchik.chtotib.models.enums.Role;
+import karmanchik.chtotib.models.enums.UserState;
+import karmanchik.chtotib.models.enums.WeekType;
+import karmanchik.chtotib.models.exception.ResourceNotFoundException;
+import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
+import karmanchik.chtotib.models.repositories.JpaGroupRepository;
+import karmanchik.chtotib.models.repositories.JpaLessonsRepository;
 import karmanchik.chtotib.telegrambot.bot.Course;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
