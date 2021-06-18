@@ -2,7 +2,7 @@
 ./bots/telegram-bot/target/
 ./chtotib-web-app/target/
 ./chtotib-models/target/
-./bots/telegram-bot/logs/
+./bots/telegram-bot/logs/cd
 ./chtotib-web-app/logs/
 ./logs/
 ./bots/telegram-bot/src/main/resources/application.yaml

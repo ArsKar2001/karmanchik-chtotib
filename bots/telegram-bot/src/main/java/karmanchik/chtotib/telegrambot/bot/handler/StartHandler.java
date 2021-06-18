@@ -55,9 +55,9 @@ public class StartHandler implements Handler {
         log.info("Set chatUser({}): user_state - {}", chatUser.getId(), UserState.START);
 
         return List.of(TelegramUtil.createMessageTemplate(chatUser)
-                .text(String.format("Привет <b>%s</b>!%nМеня зовут @%s :D%n" +
+                .text(String.format("Привет!%nМеня зовут @%s :D%n" +
                         "Я был создан для работы со студентами и педагогами ЧТОТиБ.%n" +
-                        "Давай создадим твою анкету?!", chatUser.getUserName(), botUsername))
+                        "Давай создадим твою анкету?!", botUsername))
                 .replyMarkup(TelegramUtil.createReplyKeyboardMarkup()
                         .keyboardRow(TelegramUtil.createKeyboardRow(List.of(Const.CREATE).toArray()))
                         .build())
