@@ -44,7 +44,7 @@ public class StudentHandler extends MainHandler {
         WeekType weekType = DateHelper.getWeekType();
         String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, Helper.getLocale());
 
-        List<Lesson> lessons = lessonsRepository.findAllByGroupAndWeekType(group, weekType);
+        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
         List<Replacement> replacements = replacementRepository.findByGroupAndDateOrderByDateAscPairNumberAsc(group, date);
 
         StringBuilder message = new StringBuilder();
@@ -93,7 +93,7 @@ public class StudentHandler extends MainHandler {
         WeekType weekType = DateHelper.getWeekType();
         StringBuilder message = new StringBuilder();
 
-        List<Lesson> lessons = lessonsRepository.findAllByGroupAndWeekType(group, weekType);
+        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
         message.append("Расписание ").append("<b>").append(group.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)

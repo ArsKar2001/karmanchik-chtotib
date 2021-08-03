@@ -41,6 +41,7 @@ public class UpdateReceiver {
                                 .userState(UserState.NONE)
                                 .role(Role.NONE)
                                 .build()));
+                chatUser.setUserName(userName);
                 log.info("ChatUser - {}", chatUser);
                 return getHandlerByUser(chatUser).handle(chatUser, message.getText());
             } else if (update.hasCallbackQuery()) {
@@ -55,6 +56,7 @@ public class UpdateReceiver {
                                 .userState(UserState.NONE)
                                 .role(Role.NONE)
                                 .build()));
+                chatUser.setUserName(userName);
                 log.info("ChatUser - {}", chatUser);
                 return getHandlerByUser(chatUser).handle(chatUser, callbackQuery.getData());
             }

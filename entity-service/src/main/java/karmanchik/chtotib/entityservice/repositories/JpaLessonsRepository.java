@@ -3,7 +3,6 @@ package karmanchik.chtotib.entityservice.repositories;
 import karmanchik.chtotib.entityservice.entity.Group;
 import karmanchik.chtotib.entityservice.entity.Lesson;
 import karmanchik.chtotib.entityservice.entity.Teacher;
-import karmanchik.chtotib.entityservice.enums.WeekType;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -21,7 +20,7 @@ public interface JpaLessonsRepository extends JpaRepository<Lesson, Integer> {
 
     List<Lesson> findByGroup(Group group);
 
-    List<Lesson> findAllByGroupAndWeekType(Group group, WeekType weekType);
+    List<Lesson> findAllByGroup(Group group);
 
     List<Lesson> findAllByDayOrderByPairNumber(Integer day);
 }
