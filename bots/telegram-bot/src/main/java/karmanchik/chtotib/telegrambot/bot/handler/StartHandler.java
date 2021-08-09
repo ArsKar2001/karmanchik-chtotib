@@ -4,8 +4,8 @@ import karmanchik.chtotib.models.entity.ChatUser;
 import karmanchik.chtotib.models.enums.BotState;
 import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.telegrambot.bot.Const;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ import java.util.List;
 @Component
 @RequiredArgsConstructor
 public class StartHandler implements Handler {
-    private final JpaChatUserRepository userRepository;
+    private final ChatUserService userService;
 
     @Value("${bot.name}")
     private String botUsername;
@@ -46,12 +46,12 @@ public class StartHandler implements Handler {
     private List<PartialBotApiMethod<? extends Serializable>> startMessage(ChatUser chatUser) {
         chatUser.setBotState(BotState.REG);
         chatUser.setUserState(UserState.SELECT_ROLE);
-        return List.of(HelperUtils.selectRole(userRepository.save(chatUser)));
+        return List.of(HelperUtils.selectRole(userService.saveChatUser(chatUser)));
     }
 
     private List<PartialBotApiMethod<? extends Serializable>> welcomeMessage(ChatUser chatUser) {
         chatUser.setUserState(UserState.START);
-        userRepository.save(chatUser);
+        userService.saveChatUser(chatUser);
         log.info("Set chatUser({}): user_state - {}", chatUser.getId(), UserState.START);
 
         return List.of(TelegramUtil.createMessageTemplate(chatUser)

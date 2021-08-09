@@ -6,8 +6,8 @@ import karmanchik.chtotib.models.enums.BotState;
 import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.exception.ResourceNotFoundException;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
 import karmanchik.chtotib.telegrambot.bot.handler.Handler;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Component;
@@ -25,7 +25,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class UpdateReceiver {
     private final List<Handler> handlers;
-    private final JpaChatUserRepository userRepository;
+    private final ChatUserService userService;
 
     public List<PartialBotApiMethod<? extends Serializable>> handle(Update update) {
         try {
@@ -33,14 +33,7 @@ public class UpdateReceiver {
                 Message message = update.getMessage();
                 Long chatId = message.getChatId();
                 String userName = message.getChat().getUserName();
-                ChatUser chatUser = userRepository.findByChatIdAndUserName(chatId, userName)
-                        .orElseGet(() -> userRepository.save(ChatUser.builder()
-                                .chatId(chatId)
-                                .userName(userName)
-                                .botState(BotState.START)
-                                .userState(UserState.NONE)
-                                .role(Role.NONE)
-                                .build()));
+                ChatUser chatUser = userService.findOrCreate(chatId, userName);
                 chatUser.setUserName(userName);
                 log.info("ChatUser - {}", chatUser);
                 return getHandlerByUser(chatUser).handle(chatUser, message.getText());
@@ -48,14 +41,7 @@ public class UpdateReceiver {
                 CallbackQuery callbackQuery = update.getCallbackQuery();
                 Long chatId = callbackQuery.getMessage().getChatId();
                 String userName = callbackQuery.getMessage().getChat().getUserName();
-                ChatUser chatUser = userRepository.findByChatIdAndUserName(chatId, userName)
-                        .orElseGet(() -> userRepository.save(ChatUser.builder()
-                                .chatId(chatId)
-                                .userName(userName)
-                                .botState(BotState.START)
-                                .userState(UserState.NONE)
-                                .role(Role.NONE)
-                                .build()));
+                ChatUser chatUser = userService.findOrCreate(chatId, userName);
                 chatUser.setUserName(userName);
                 log.info("ChatUser - {}", chatUser);
                 return getHandlerByUser(chatUser).handle(chatUser, callbackQuery.getData());

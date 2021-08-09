@@ -50,6 +50,8 @@ public enum MainCommand {
                 .findFirst().orElse(null);
     }
 
+
+
     /**
      * Проверяет входной объект на соответствие MainCommand
      * @param o Любой объект

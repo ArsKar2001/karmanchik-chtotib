@@ -8,9 +8,9 @@ import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.enums.WeekType;
 import karmanchik.chtotib.models.exception.ResourceNotFoundException;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.models.repositories.JpaLessonsRepository;
-import karmanchik.chtotib.models.repositories.JpaTeacherRepository;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
+import karmanchik.chtotib.telegrambot.services.LessonsService;
+import karmanchik.chtotib.telegrambot.services.TeacherService;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
@@ -34,9 +34,9 @@ import static karmanchik.chtotib.telegrambot.bot.Const.MESSAGE_SPLIT;
 @Component
 @RequiredArgsConstructor
 public class TimetableTeacherHandler implements Handler {
-    private final JpaTeacherRepository teacherRepository;
-    private final JpaChatUserRepository userRepository;
-    private final JpaLessonsRepository lessonsRepository;
+    private final TeacherService teacherService;
+    private final ChatUserService userService;
+    private final LessonsService lessonsService;
 
     public List<PartialBotApiMethod<? extends Serializable>> handle(ChatUser chatUser, String message) throws ResourceNotFoundException {
         switch (chatUser.getUserState()) {
@@ -59,10 +59,10 @@ public class TimetableTeacherHandler implements Handler {
     }
 
     private List<PartialBotApiMethod<? extends Serializable>> selectTeacher(ChatUser chatUser, String message) {
-        List<Teacher> teacherNames = teacherRepository.findAllByName(message.toLowerCase());
+        List<Teacher> teacherNames = teacherService.findTeachersByNameLike(message.toLowerCase());
         if (!teacherNames.isEmpty()) {
             chatUser.setUserState(UserState.SELECT_TEACHER);
-            ChatUser save = userRepository.save(chatUser);
+            ChatUser save = userService.saveChatUser(chatUser);
 
             return sendMessageItIsYou(save,
                     InlineKeyboardMarkup.builder()
@@ -80,11 +80,10 @@ public class TimetableTeacherHandler implements Handler {
     private List<PartialBotApiMethod<? extends Serializable>> selectTeacherOrAccept(ChatUser chatUser, String message) throws ResourceNotFoundException {
         if (message.equalsIgnoreCase(CANCEL)) {
             chatUser.setUserState(UserState.INPUT_TEXT);
-            return start(userRepository.save(chatUser));
+            return start(userService.saveChatUser(chatUser));
         } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
-            Teacher teacher = teacherRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException(id, Teacher.class));
+            Teacher teacher = teacherService.findTeacher(id);
             return List.of(
                     createMessage(teacher, chatUser),
                     cancel(chatUser)
@@ -97,7 +96,7 @@ public class TimetableTeacherHandler implements Handler {
         WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
 
-        List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
+        List<Lesson> lessons = lessonsService.findLessons(teacher);
         message.append("Расписание ").append("<b>").append(teacher.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)
@@ -139,7 +138,7 @@ public class TimetableTeacherHandler implements Handler {
 
     private PartialBotApiMethod<? extends Serializable> cancel(ChatUser chatUser) {
         chatUser.setUserState(UserState.NONE);
-        return HelperUtils.mainMessage(userRepository.save(chatUser));
+        return HelperUtils.mainMessage(userService.saveChatUser(chatUser));
     }
 
     public BotState operatedBotState() {

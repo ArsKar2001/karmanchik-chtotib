@@ -8,10 +8,10 @@ import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.enums.WeekType;
 import karmanchik.chtotib.models.exception.ResourceNotFoundException;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.models.repositories.JpaGroupRepository;
-import karmanchik.chtotib.models.repositories.JpaLessonsRepository;
 import karmanchik.chtotib.telegrambot.bot.Course;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
+import karmanchik.chtotib.telegrambot.services.GroupService;
+import karmanchik.chtotib.telegrambot.services.LessonsService;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
@@ -32,9 +32,9 @@ import static karmanchik.chtotib.telegrambot.bot.Const.MESSAGE_SPLIT;
 @Component
 @RequiredArgsConstructor
 public class TimetableGroupHandler implements Handler {
-    private final JpaChatUserRepository userRepository;
-    private final JpaGroupRepository groupRepository;
-    private final JpaLessonsRepository lessonsRepository;
+    private final ChatUserService userService;
+    private final GroupService groupService;
+    private final LessonsService lessonsService;
     private final HelperUtils helperUtils;
 
     @Override
@@ -62,8 +62,7 @@ public class TimetableGroupHandler implements Handler {
         } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
             log.info("Find group by id: {} ...", id);
-            Group group = groupRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException(id, Group.class));
+            Group group = groupService.findGroup(id);
             chatUser.setGroup(group);
             return List.of(
                     createMessage(chatUser, group),
@@ -76,8 +75,7 @@ public class TimetableGroupHandler implements Handler {
     private PartialBotApiMethod<? extends Serializable> createMessage(ChatUser chatUser, Group group) {
         WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
-
-        List<Lesson> lessons = lessonsRepository.findByGroup(group);
+        List<Lesson> lessons = lessonsService.findLessons(group);
         message.append("Расписание ").append("<b>").append(group.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)
@@ -98,7 +96,7 @@ public class TimetableGroupHandler implements Handler {
 
     private PartialBotApiMethod<? extends Serializable> cancel(ChatUser chatUser) {
         chatUser.setUserState(UserState.NONE);
-        return HelperUtils.mainMessage(userRepository.save(chatUser));
+        return HelperUtils.mainMessage(userService.saveChatUser(chatUser));
     }
 
     @Override

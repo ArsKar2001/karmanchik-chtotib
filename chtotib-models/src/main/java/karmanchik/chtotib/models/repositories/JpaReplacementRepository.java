@@ -23,6 +23,8 @@ public interface JpaReplacementRepository extends JpaRepository<Replacement, Int
 
     List<Replacement> findByGroupAndDateOrderByDateAscPairNumberAsc(Group group, LocalDate date);
 
+    List<Replacement> findByGroupOrderByPairNumber(Group group);
+
     @Query("SELECT r FROM Replacement r " +
             "WHERE :teacher member of r.teachers AND r.date = :date " +
             "ORDER BY r.date, r.pairNumber")

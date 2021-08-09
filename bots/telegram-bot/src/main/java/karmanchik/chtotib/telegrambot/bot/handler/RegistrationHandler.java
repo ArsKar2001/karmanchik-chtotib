@@ -1,16 +1,15 @@
 package karmanchik.chtotib.telegrambot.bot.handler;
 
 import karmanchik.chtotib.models.entity.ChatUser;
-import karmanchik.chtotib.models.entity.Group;
 import karmanchik.chtotib.models.entity.Teacher;
 import karmanchik.chtotib.models.enums.BotState;
 import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.exception.ResourceNotFoundException;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.models.repositories.JpaGroupRepository;
-import karmanchik.chtotib.models.repositories.JpaTeacherRepository;
 import karmanchik.chtotib.telegrambot.bot.Course;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
+import karmanchik.chtotib.telegrambot.services.GroupService;
+import karmanchik.chtotib.telegrambot.services.TeacherService;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
 import lombok.RequiredArgsConstructor;
@@ -33,9 +32,9 @@ import static karmanchik.chtotib.telegrambot.bot.Const.*;
 @Component
 @RequiredArgsConstructor
 public class RegistrationHandler implements Handler {
-    private final JpaChatUserRepository userRepository;
-    private final JpaGroupRepository groupRepository;
-    private final JpaTeacherRepository teacherRepository;
+    private final ChatUserService userService;
+    private final GroupService groupService;
+    private final TeacherService teacherService;
 
     private final HelperUtils helperUtils;
 
@@ -77,7 +76,7 @@ public class RegistrationHandler implements Handler {
         if (message.equalsIgnoreCase(ROLE_STUDENT)) {
             chatUser.setUserState(UserState.SELECT_COURSE);
             chatUser.setRole(Role.STUDENT);
-            ChatUser save = userRepository.save(chatUser);
+            ChatUser save = userService.saveChatUser(chatUser);
             return HelperUtils.createSelectCourseButtonPanel(save);
         } else if (message.equalsIgnoreCase(ROLE_TEACHER)) {
             chatUser.setRole(Role.TEACHER);
@@ -93,7 +92,7 @@ public class RegistrationHandler implements Handler {
      */
     private List<PartialBotApiMethod<? extends Serializable>> inputTeacherName(ChatUser chatUser) {
         chatUser.setUserState(UserState.INPUT_TEXT);
-        return List.of(HelperUtils.inputMessage(userRepository.save(chatUser),
+        return List.of(HelperUtils.inputMessage(userService.saveChatUser(chatUser),
                 "Введите фамилию..."));
     }
 
@@ -109,8 +108,7 @@ public class RegistrationHandler implements Handler {
         } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
             log.info("Find group by id: {} ...", id);
-            chatUser.setGroup(groupRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException(id, Group.class)));
+            chatUser.setGroup(groupService.findGroup(id));
             return List.of(
                     accept(chatUser)
             );
@@ -129,8 +127,7 @@ public class RegistrationHandler implements Handler {
             return inputTeacherName(chatUser);
         } else if (HelperUtils.isNumeric(message)) {
             int id = Integer.parseInt(message);
-            chatUser.setTeacher(teacherRepository.findById(id)
-                    .orElseThrow(() -> new ResourceNotFoundException(id, Teacher.class)));
+            chatUser.setTeacher(teacherService.findTeacher(id));
             return List.of(
                     accept(chatUser)
             );
@@ -139,11 +136,11 @@ public class RegistrationHandler implements Handler {
     }
 
     private List<PartialBotApiMethod<? extends Serializable>> selectTeacher(ChatUser chatUser, String message) {
-        List<Teacher> teacherNames = teacherRepository.findAllByName(message.toLowerCase());
+        List<Teacher> teacherNames = teacherService.findTeachersByNameLike(message.toLowerCase());
         if (!teacherNames.isEmpty()) {
             chatUser.setUserState(UserState.SELECT_TEACHER);
 
-            return sendMessageItIsYou(userRepository.save(chatUser),
+            return sendMessageItIsYou(userService.saveChatUser(chatUser),
                     InlineKeyboardMarkup.builder()
                             .keyboard(TelegramUtil.createInlineKeyboardButtons(teacherNames, 2))
                             .build(),
@@ -184,13 +181,13 @@ public class RegistrationHandler implements Handler {
     private PartialBotApiMethod<? extends Serializable> accept(ChatUser chatUser) {
         chatUser.setUserState(UserState.NONE);
         chatUser.setBotState(BotState.AUTHORIZED);
-        return HelperUtils.mainMessage(userRepository.save(chatUser));
+        return HelperUtils.mainMessage(userService.saveChatUser(chatUser));
     }
 
     private PartialBotApiMethod<? extends Serializable> cancel(ChatUser chatUser) {
         chatUser.setUserState(UserState.SELECT_ROLE);
         chatUser.setBotState(BotState.REG);
-        return HelperUtils.selectRole(userRepository.save(chatUser));
+        return HelperUtils.selectRole(userService.saveChatUser(chatUser));
     }
 
     @Override

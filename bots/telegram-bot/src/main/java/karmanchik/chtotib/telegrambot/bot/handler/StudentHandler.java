@@ -5,10 +5,10 @@ import karmanchik.chtotib.models.enums.BotState;
 import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.enums.WeekType;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.models.repositories.JpaGroupRepository;
-import karmanchik.chtotib.models.repositories.JpaLessonsRepository;
-import karmanchik.chtotib.models.repositories.JpaReplacementRepository;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
+import karmanchik.chtotib.telegrambot.services.GroupService;
+import karmanchik.chtotib.telegrambot.services.LessonsService;
+import karmanchik.chtotib.telegrambot.services.ReplacementService;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
@@ -35,21 +35,20 @@ import static karmanchik.chtotib.telegrambot.bot.Const.MESSAGE_SPLIT;
 @Component
 @RequiredArgsConstructor
 public class StudentHandler extends MainHandler {
-    private final JpaLessonsRepository lessonsRepository;
-    private final JpaReplacementRepository replacementRepository;
-    private final JpaGroupRepository groupRepository;
-    private final JpaChatUserRepository userRepository;
+    private final LessonsService lessonsService;
+    private final ReplacementService replacementService;
+    private final GroupService groupService;
+    private final ChatUserService userService;
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> getTimetableNextDay(ChatUser chatUser) {
-        Group group = groupRepository.findByChatUser(chatUser)
-                .orElseThrow();
+        Group group = groupService.findGroup(chatUser);
         LocalDate date = DateHelperUtils.getNextSchoolDate(LocalDateTime.now());
         WeekType weekType = DateHelperUtils.getWeekType();
         String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, HelperUtils.getLocale());
 
-        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
-        List<Replacement> replacements = replacementRepository.findByGroupAndDateOrderByDateAscPairNumberAsc(group, date);
+        List<Lesson> lessons = lessonsService.findLessons(group);
+        List<Replacement> replacements = replacementService.findReplacements(group, date);
 
         StringBuilder message = new StringBuilder();
         if (!lessons.isEmpty()) {
@@ -91,13 +90,11 @@ public class StudentHandler extends MainHandler {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> getTimetableFull(ChatUser chatUser) {
-
-        Group group = groupRepository.findByChatUser(chatUser)
-                .orElseThrow();
+        Group group = groupService.findGroup(chatUser);
         WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
 
-        List<Lesson> lessons = lessonsRepository.findAllByGroup(group);
+        List<Lesson> lessons = lessonsService.findLessons(group);
         message.append("Расписание ").append("<b>").append(group.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)
@@ -121,7 +118,7 @@ public class StudentHandler extends MainHandler {
     @Override
     protected List<PartialBotApiMethod<? extends Serializable>> getTimetableOther(ChatUser chatUser) {
         chatUser.setUserState(UserState.INPUT_TEXT);
-        return TimetableTeacherHandler.start(userRepository.save(chatUser));
+        return TimetableTeacherHandler.start(userService.saveChatUser(chatUser));
     }
 
     @Override
@@ -129,7 +126,7 @@ public class StudentHandler extends MainHandler {
         chatUser.setBotState(BotState.REG);
         chatUser.setUserState(UserState.SELECT_ROLE);
         return List.of(
-                HelperUtils.selectRole(userRepository.save(chatUser)));
+                HelperUtils.selectRole(userService.saveChatUser(chatUser)));
     }
 
     @Override

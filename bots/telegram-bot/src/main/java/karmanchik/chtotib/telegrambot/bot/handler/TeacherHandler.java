@@ -8,10 +8,10 @@ import karmanchik.chtotib.models.enums.BotState;
 import karmanchik.chtotib.models.enums.Role;
 import karmanchik.chtotib.models.enums.UserState;
 import karmanchik.chtotib.models.enums.WeekType;
-import karmanchik.chtotib.models.repositories.JpaChatUserRepository;
-import karmanchik.chtotib.models.repositories.JpaLessonsRepository;
-import karmanchik.chtotib.models.repositories.JpaReplacementRepository;
-import karmanchik.chtotib.models.repositories.JpaTeacherRepository;
+import karmanchik.chtotib.telegrambot.services.ChatUserService;
+import karmanchik.chtotib.telegrambot.services.LessonsService;
+import karmanchik.chtotib.telegrambot.services.ReplacementService;
+import karmanchik.chtotib.telegrambot.services.TeacherService;
 import karmanchik.chtotib.telegrambot.util.DateHelperUtils;
 import karmanchik.chtotib.telegrambot.util.HelperUtils;
 import karmanchik.chtotib.telegrambot.util.TelegramUtil;
@@ -37,21 +37,20 @@ import static karmanchik.chtotib.telegrambot.bot.Const.MESSAGE_SPLIT;
 @Component
 @RequiredArgsConstructor
 public class TeacherHandler extends MainHandler {
-    private final JpaChatUserRepository userRepository;
-    private final JpaTeacherRepository teacherRepository;
-    private final JpaLessonsRepository lessonsRepository;
-    private final JpaReplacementRepository replacementRepository;
+    private final ChatUserService userService;
+    private final TeacherService teacherService;
+    private final LessonsService lessonsService;
+    private final ReplacementService replacementService;
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> getTimetableNextDay(ChatUser chatUser) {
-        Teacher teacher = teacherRepository.findByChatUser(chatUser)
-                .orElseThrow();
+        Teacher teacher = teacherService.findTeacher(chatUser);
         LocalDate date = DateHelperUtils.getNextSchoolDate(LocalDateTime.now());
         WeekType weekType = DateHelperUtils.getWeekType();
         String name = date.getDayOfWeek().getDisplayName(TextStyle.FULL, HelperUtils.getLocale());
 
-        List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
-        List<Replacement> replacements = replacementRepository.findByTeacherAndDateOrderByDateAscPairNumberAsc(teacher, date);
+        List<Lesson> lessons = lessonsService.findLessons(teacher);
+        List<Replacement> replacements = replacementService.findReplacements(teacher, date);
 
         StringBuilder message = new StringBuilder();
         if (!lessons.isEmpty()) {
@@ -90,13 +89,11 @@ public class TeacherHandler extends MainHandler {
 
     @Override
     public List<PartialBotApiMethod<? extends Serializable>> getTimetableFull(ChatUser chatUser) {
-
-        Teacher teacher = teacherRepository.findByChatUser(chatUser)
-                .orElseThrow();
+        Teacher teacher = teacherService.findTeacher(chatUser);
         WeekType weekType = DateHelperUtils.getWeekType();
         StringBuilder message = new StringBuilder();
 
-        List<Lesson> lessons = lessonsRepository.findByTeacherOrderByPairNumberAsc(teacher);
+        List<Lesson> lessons = lessonsService.findLessons(teacher);
         message.append("Расписание ").append("<b>").append(teacher.getName()).append("</b>:").append("\n");
         lessons.stream()
                 .map(Lesson::getDay)
@@ -120,7 +117,7 @@ public class TeacherHandler extends MainHandler {
     @Override
     protected List<PartialBotApiMethod<? extends Serializable>> getTimetableOther(ChatUser chatUser) {
         chatUser.setUserState(UserState.SELECT_COURSE);
-        return TimetableGroupHandler.start(userRepository.save(chatUser));
+        return TimetableGroupHandler.start(userService.saveChatUser(chatUser));
     }
 
     @Override
@@ -128,7 +125,7 @@ public class TeacherHandler extends MainHandler {
         chatUser.setBotState(BotState.REG);
         chatUser.setUserState(UserState.SELECT_ROLE);
         return List.of(
-                HelperUtils.selectRole(userRepository.save(chatUser)));
+                HelperUtils.selectRole(userService.saveChatUser(chatUser)));
     }
 
     @Override
